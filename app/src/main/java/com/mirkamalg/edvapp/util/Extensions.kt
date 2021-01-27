@@ -1,11 +1,16 @@
 package com.mirkamalg.edvapp.util
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.Fragment
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.mirkamalg.edvapp.model.data.*
 import com.mirkamalg.edvapp.model.entities.ChequeEntity
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 /**
  * Created by Mirkamal on 25 January 2021
@@ -56,4 +61,10 @@ fun ChequeEntity.toChequeWrapperData(): ChequeWrapperData {
             )
         )
     )
+}
+
+fun Fragment.copyToClipboard(text: String) {
+    val clipboard = getSystemService(requireContext(), ClipboardManager::class.java)
+    val clip = ClipData.newPlainText("documentID", text)
+    clipboard?.setPrimaryClip(clip)
 }

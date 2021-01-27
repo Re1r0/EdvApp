@@ -41,4 +41,8 @@
     <string name="msg_cashback_not_refunded">ƏDV qaytarılması həyata keçirilməyib</string>
     <string name="msg_copy">Kopyala</string>
     <string name="msg_cashback">ƏDV-in qaytarılması</string>
+    <string name="msg_short_document_id_was_copied">Fiskal İD kopyalandı</string>
+    <string name="err_cheque_data_not_found">Çek məlumatları tapılmadı</string>
+    <string name="msg_cashback_refunded">ƏDV qaytarılması həyata keçirilib</string>
+    <string name="msg_cheque_has_already_been_added">Çek artıq əlavə edilib</string>
 </resources>

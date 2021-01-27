@@ -38,4 +38,12 @@ class ChequesRepository(private val chequesDatabase: ChequesDatabase? = null) : 
             ResponseState.Error(e.message.toString())
         }
     }
+
+    suspend fun fetchCashbackStatusFromAPI(chequeShortID: String): ResponseState {
+        return try {
+            getResponseStatus(chequesServices.getChequeCashbackStatus(chequeShortID))
+        } catch (e: java.lang.Exception) {
+            ResponseState.Error(e.message.toString())
+        }
+    }
 }

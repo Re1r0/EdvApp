@@ -523,6 +523,7 @@
                 android:fontFamily="@font/sf_ui_display_medium"
                 android:textColor="?colorOnSecondary"
                 android:textSize="20sp"
+                android:text="@string/msg_cashback_not_refunded"
                 app:layout_constraintStart_toStartOf="@id/textViewCashBackLabel"
                 app:layout_constraintTop_toBottomOf="@id/textViewCashBackLabel"
                 tools:text="ƏDV qaytarılması həyata keçirilməyib" />

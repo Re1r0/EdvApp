@@ -15,6 +15,8 @@ import com.mirkamalg.edvapp.databinding.FragmentChequeDetailsBinding
 import com.mirkamalg.edvapp.model.data.ChequeData
 import com.mirkamalg.edvapp.model.data.ChequeWrapperData
 import com.mirkamalg.edvapp.ui.fragments.cheque_details.recyclerview.ChequeItemsListAdapter
+import com.mirkamalg.edvapp.util.ERROR_RESPONSE_BODY_NULL
+import com.mirkamalg.edvapp.util.copyToClipboard
 import com.mirkamalg.edvapp.viewmodels.ChequesViewModel
 
 /**
@@ -53,6 +55,11 @@ class ChequeDetailsFragment : Fragment() {
             //Load from local db if data is stored
             chequesViewModel.getChequeDetailsFromDatabase(args.chequeEntity.documentID)
         }
+
+        // Fetch cashback status every time unless it is refunded
+        if (!args.chequeEntity.cashback) {
+            chequesViewModel.getChequeCashbackStatus(args.chequeEntity.shortDocumentId)
+        }
     }
 
     private fun setOnClickListeners() {
@@ -64,7 +71,12 @@ class ChequeDetailsFragment : Fragment() {
 
             }
             imageButtonCopyShortID.setOnClickListener {
-
+                copyToClipboard(binding.textViewShortID.text.toString())
+                Toast.makeText(
+                    context,
+                    getString(R.string.msg_short_document_id_was_copied),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -72,7 +84,7 @@ class ChequeDetailsFragment : Fragment() {
     private fun configureObservers() {
         chequesViewModel.error.observe(viewLifecycleOwner) {
             it?.let {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                handleError(it)
             }
         }
         chequesViewModel.viewedChequeData.observe(viewLifecycleOwner) {
@@ -80,6 +92,14 @@ class ChequeDetailsFragment : Fragment() {
             it?.let {
                 loadDataToUI(it)
                 it.cheque?.let { it1 -> updateLocalChequeData(it1) }
+            }
+        }
+        chequesViewModel.viewedChequeCashbackStatus.observe(viewLifecycleOwner) {
+            //TODO change checking method to using 'returnStatus' instead of 'returnedAmount'
+            it?.let {
+                it.returnedAmount?.let {
+                    binding.textViewCashBack.text = getText(R.string.msg_cashback_refunded)
+                }
             }
         }
     }
@@ -134,5 +154,20 @@ class ChequeDetailsFragment : Fragment() {
     private fun configureRecyclerView() {
         adapter = ChequeItemsListAdapter()
         binding.recyclerViewGoods.adapter = adapter
+    }
+
+    private fun handleError(error: String) {
+        when (error) {
+            ERROR_RESPONSE_BODY_NULL -> {
+                Toast.makeText(
+                    context,
+                    getString(R.string.err_cheque_data_not_found),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else -> {
+                Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

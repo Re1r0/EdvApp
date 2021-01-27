@@ -1,5 +1,6 @@
 package com.mirkamalg.edvapp.network.services
 
+import com.mirkamalg.edvapp.model.data.CashbackData
 import com.mirkamalg.edvapp.model.data.ChequeWrapperData
 import retrofit2.Response
 import retrofit2.http.GET
@@ -15,4 +16,8 @@ interface ChequeServices {
         @Path("chequeID") chequeID: String
     ): Response<ChequeWrapperData>
 
+    @GET("documents/{chequeShortID}/cashback")
+    suspend fun getChequeCashbackStatus(
+        @Path("chequeShortID") chequeShortID: String
+    ): Response<CashbackData>
 }

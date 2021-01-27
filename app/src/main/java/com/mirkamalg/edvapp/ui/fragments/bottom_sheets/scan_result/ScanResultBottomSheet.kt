@@ -39,6 +39,27 @@ class ScanResultBottomSheet : BottomSheetDialogFragment() {
 
         handleArgs()
         setOnClickListeners()
+        configureObservers()
+        checkIfChequeIsAlreadyAdded()
+    }
+
+    private fun checkIfChequeIsAlreadyAdded() {
+        chequesViewModel.getChequeDetailsFromDatabase(args.url.split("=")[1])
+    }
+
+    private fun configureObservers() {
+        chequesViewModel.viewedChequeData.observe(viewLifecycleOwner) {
+            if (it != null) {
+                updateUIForExistingCheque()
+            }
+        }
+    }
+
+    private fun updateUIForExistingCheque() {
+        binding.textViewChequeShortID.visibility = View.INVISIBLE
+        binding.cardCancel.visibility = View.INVISIBLE
+        binding.cardAccept.visibility = View.INVISIBLE
+        binding.textViewConfirmation.text = getString(R.string.msg_cheque_has_already_been_added)
     }
 
     private fun handleArgs() {

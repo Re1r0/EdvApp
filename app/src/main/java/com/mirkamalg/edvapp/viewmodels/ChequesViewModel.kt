@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.mirkamalg.edvapp.local.database.ChequesDatabase
+import com.mirkamalg.edvapp.model.data.CashbackData
 import com.mirkamalg.edvapp.model.data.ChequeData
 import com.mirkamalg.edvapp.model.data.ChequeWrapperData
 import com.mirkamalg.edvapp.model.entities.ChequeEntity
@@ -37,9 +38,13 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
     val viewedChequeData: LiveData<ChequeWrapperData>
         get() = _viewedChequeData
 
+    private val _viewedChequeCashbackStatus = MutableLiveData<CashbackData>()
+    val viewedChequeCashbackStatus: LiveData<CashbackData>
+        get() = _viewedChequeCashbackStatus
+
     fun getAllCheques() {
         viewModelScope.launch(Dispatchers.IO) {
-            val cheques = chequesRepository.getAllCheques()
+            val cheques = chequesRepository.getAllCheques()?.asReversed()
             withContext(Dispatchers.Main) {
                 _allCheques.value = cheques
             }
@@ -114,6 +119,31 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
                 is ResponseState.NullBody -> {
                     withContext(Dispatchers.Main) {
                         _error.value = ERROR_RESPONSE_BODY_NULL
+                        _error.value = null
+                    }
+                }
+            }
+        }
+    }
+
+    fun getChequeCashbackStatus(chequeShortID: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val response = chequesRepository.fetchCashbackStatusFromAPI(chequeShortID)) {
+                is ResponseState.Success<*> -> {
+                    withContext(Dispatchers.Main) {
+                        _viewedChequeCashbackStatus.value = response.data as CashbackData
+                        _viewedChequeCashbackStatus.value = null
+                    }
+                }
+                is ResponseState.NullBody -> {
+                    withContext(Dispatchers.Main) {
+                        _error.value = ERROR_RESPONSE_BODY_NULL
+                        _error.value = null
+                    }
+                }
+                is ResponseState.Error -> {
+                    withContext(Dispatchers.Main) {
+                        _error.value = response.error
                         _error.value = null
                     }
                 }
