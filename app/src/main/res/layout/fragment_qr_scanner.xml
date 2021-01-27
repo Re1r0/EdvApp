@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/topBarScanner"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/buttonGoBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:src="@drawable/ic_back"
+        android:tint="?colorOnSecondary"
+        android:tooltipText="@string/msg_to_back"
+        app:layout_constraintBottom_toBottomOf="@id/topBarScanner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topBarScanner" />
+
+    <TextView
+        android:id="@+id/textViewTitleCheques"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:text="@string/title_scan"
+        android:textColor="?colorOnSecondary"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/topBarScanner"
+        app:layout_constraintStart_toEndOf="@id/buttonGoBack"
+        app:layout_constraintTop_toTopOf="@id/topBarScanner" />
+
+    <ImageButton
+        android:id="@+id/imageButtonPickFromGallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="4dp"
+        android:src="@drawable/ic_gallery"
+        android:tint="?colorOnSecondary"
+        android:tooltipText="@string/msg_pick_from_gallery"
+        app:layout_constraintBottom_toBottomOf="@id/topBarScanner"
+        app:layout_constraintEnd_toEndOf="@id/topBarScanner"
+        app:layout_constraintTop_toTopOf="@id/topBarScanner" />
+
+    <ImageButton
+        android:id="@+id/imageButtonKeyboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="4dp"
+        android:src="@drawable/ic_keyboard"
+        android:tint="?colorOnSecondary"
+        android:tooltipText="@string/msg_enter_short_id"
+        app:layout_constraintBottom_toBottomOf="@id/imageButtonPickFromGallery"
+        app:layout_constraintEnd_toStartOf="@id/imageButtonPickFromGallery"
+        app:layout_constraintTop_toTopOf="@id/imageButtonPickFromGallery" />
+
+    <ImageView
+        android:id="@+id/imageViewOverlayScanner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="1dp"
+        android:src="@drawable/overlay_scanner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBarScanner"
+        app:layout_constraintWidth_percent="0.55" />
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewViewQRScanner"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBarScanner" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

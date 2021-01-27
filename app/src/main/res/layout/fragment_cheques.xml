@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--    Top bar part begins-->
+
+    <View
+        android:id="@+id/topBarCheques"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewTitleCheques"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:text="@string/title_cheques"
+        android:textColor="?colorOnSecondary"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/topBarCheques"
+        app:layout_constraintStart_toStartOf="@id/topBarCheques"
+        app:layout_constraintTop_toTopOf="@id/topBarCheques" />
+
+    <ImageButton
+        android:id="@+id/imageButtonInfoAboutApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="4dp"
+        android:src="@drawable/ic_info"
+        android:tint="?colorOnSecondary"
+        android:tooltipText="@string/msg_about_app"
+        app:layout_constraintBottom_toBottomOf="@id/topBarCheques"
+        app:layout_constraintEnd_toEndOf="@id/topBarCheques"
+        app:layout_constraintTop_toTopOf="@id/topBarCheques" />
+
+    <ImageButton
+        android:id="@+id/imageButtonCalculator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="4dp"
+        android:src="@drawable/ic_calculator"
+        android:tint="?colorOnSecondary"
+        android:tooltipText="@string/msg_vat_calculator"
+        app:layout_constraintBottom_toBottomOf="@id/imageButtonInfoAboutApp"
+        app:layout_constraintEnd_toStartOf="@id/imageButtonInfoAboutApp"
+        app:layout_constraintTop_toTopOf="@id/imageButtonInfoAboutApp" />
+
+    <!--    Top bar part ends-->
+
+    <!--    Top cards start-->
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewSpending"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:outlineAmbientShadowColor="@color/colorRed"
+        android:outlineSpotShadowColor="@color/colorRed"
+        app:cardElevation="48dp"
+        app:layout_constraintEnd_toStartOf="@+id/cardViewVAT"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBarCheques"
+        app:layout_constraintWidth_percent="0.4">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/textViewTotalSpendingLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_total_spending"
+                android:textColor="?colorOnSecondary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewTotalSpending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_zero_manats"
+                android:textColor="@color/colorRed"
+                android:textSize="22sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewTotalSpendingLabel" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_arrow_right_navigation"
+                app:layout_constraintBottom_toBottomOf="@id/textViewTotalSpending"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewVAT"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:outlineAmbientShadowColor="@color/colorGreen"
+        android:outlineSpotShadowColor="@color/colorGreen"
+        app:cardElevation="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cardViewSpending"
+        app:layout_constraintTop_toBottomOf="@id/topBarCheques"
+        app:layout_constraintWidth_percent="0.4">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/textViewTotalVATLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_total_spending"
+                android:textColor="?colorOnSecondary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewTotalVAT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_zero_manats"
+                android:textColor="@color/colorGreen"
+                android:textSize="22sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewTotalVATLabel" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_arrow_right_navigation"
+                android:tint="@color/colorGreen"
+                app:layout_constraintBottom_toBottomOf="@id/textViewTotalVAT"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!--    Top cards end-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCheques"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="36dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewSpending"
+        tools:listitem="@layout/item_cheques_list" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floationActionButtonScanQRCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:backgroundTint="@color/colorGreen"
+        android:src="@drawable/ic_qr_code"
+        android:tooltipText="@string/msg_qr_scanner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

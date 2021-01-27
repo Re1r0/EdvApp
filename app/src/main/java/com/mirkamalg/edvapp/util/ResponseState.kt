@@ -1,0 +1,10 @@
+package com.mirkamalg.edvapp.util
+
+/**
+ * Created by Mirkamal on 26 January 2021
+ */
+sealed class ResponseState {
+    data class Success<T>(val data: T) : ResponseState()
+    object NullBody : ResponseState()
+    data class Error(val error: String) : ResponseState()
+}

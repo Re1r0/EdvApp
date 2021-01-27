@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
+
+    <View
+        android:id="@+id/topBarChequeDetails"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/buttonGoBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:src="@drawable/ic_back"
+        android:tint="?colorOnSecondary"
+        android:tooltipText="@string/msg_to_back"
+        app:layout_constraintBottom_toBottomOf="@id/topBarChequeDetails"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topBarChequeDetails" />
+
+    <TextView
+        android:id="@+id/textViewTitleCheques"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:text="@string/title_cheque_details"
+        android:textColor="?colorOnSecondary"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/topBarChequeDetails"
+        app:layout_constraintStart_toEndOf="@id/buttonGoBack"
+        app:layout_constraintTop_toTopOf="@id/topBarChequeDetails" />
+
+    <ImageButton
+        android:id="@+id/imageButtonShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="4dp"
+        android:src="@drawable/ic_share"
+        android:tint="?colorOnSecondary"
+        android:tooltipText="@string/msg_share"
+        app:layout_constraintBottom_toBottomOf="@id/topBarChequeDetails"
+        app:layout_constraintEnd_toEndOf="@id/topBarChequeDetails"
+        app:layout_constraintTop_toTopOf="@id/topBarChequeDetails" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollViewChequeDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/topBarChequeDetails"
+        tools:visibility="visible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="80dp">
+
+            <FrameLayout
+                android:id="@+id/topBannerChequeDetails"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@drawable/gradient_cheque_details"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textViewBannerStoreName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/sf_ui_display_bold"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    tools:text="ARAZ MARKET" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/textViewAddressLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_address"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/topBannerChequeDetails" />
+
+            <TextView
+                android:id="@+id/textViewAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:textColor="?colorOnSecondary"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="@id/textViewAddressLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewAddressLabel"
+                tools:text="BAKI ŞƏHƏRİ BİNƏQƏDİ RAYONU" />
+
+            <TextView
+                android:id="@+id/textViewCompanyTaxNumberLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_voen"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/textViewAddress"
+                app:layout_constraintTop_toBottomOf="@id/textViewAddress" />
+
+            <TextView
+                android:id="@+id/textViewCompanyTaxNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:textColor="?colorOnSecondary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/textViewCompanyTaxNumberLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewCompanyTaxNumberLabel"
+                tools:text="1001994141" />
+
+            <TextView
+                android:id="@+id/textViewStoreTaxNumberLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_business_code"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/textViewCompanyTaxNumber"
+                app:layout_constraintTop_toBottomOf="@id/textViewCompanyTaxNumber" />
+
+            <TextView
+                android:id="@+id/textViewStoreTaxNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:textColor="?colorOnSecondary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/textViewStoreTaxNumberLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewStoreTaxNumberLabel"
+                tools:text="1001994141-10017" />
+
+            <TextView
+                android:id="@+id/textViewSaleChequeNumberLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_sale_cheque_number"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/textViewStoreTaxNumber"
+                app:layout_constraintTop_toBottomOf="@id/textViewStoreTaxNumber" />
+
+            <TextView
+                android:id="@+id/textViewSaleChequeNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:textColor="?colorOnSecondary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/textViewSaleChequeNumberLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewSaleChequeNumberLabel"
+                tools:text="98879" />
+
+            <TextView
+                android:id="@+id/textViewCashierLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_cashier"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/textViewSaleChequeNumber"
+                app:layout_constraintTop_toBottomOf="@id/textViewSaleChequeNumber" />
+
+            <TextView
+                android:id="@+id/textViewCashier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:textColor="?colorOnSecondary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/textViewCashierLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewCashierLabel"
+                tools:text="Rövşən Rüstəmzadə" />
+
+            <TextView
+                android:id="@+id/textViewDateAndTimeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_date_and_time"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/textViewCashier"
+                app:layout_constraintTop_toBottomOf="@id/textViewCashier" />
+
+            <TextView
+                android:id="@+id/textViewDateAndTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:textColor="?colorOnSecondary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/textViewDateAndTimeLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewDateAndTimeLabel"
+                tools:text="19.01.2021  18:50:45" />
+
+            <TextView
+                android:id="@+id/textViewGoodsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_goods"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/textViewDateAndTime"
+                app:layout_constraintTop_toBottomOf="@id/textViewDateAndTime" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewGoods"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:clipToPadding="false"
+                android:maxHeight="400dp"
+                android:padding="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/textViewGoodsLabel"
+                tools:listitem="@layout/item_cheque_items" />
+
+            <TextView
+                android:id="@+id/textViewSumLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_sum"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/textViewDateAndTime"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewGoods" />
+
+            <TextView
+                android:id="@+id/textViewSum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:textColor="?colorOnSecondary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/textViewSumLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewSumLabel"
+                tools:text="3.20 ₼" />
+
+            <TextView
+                android:id="@+id/textViewVATLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_vat_18_percent"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/textViewSum"
+                app:layout_constraintTop_toBottomOf="@id/textViewSum" />
+
+            <TextView
+                android:id="@+id/textViewVAT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:textColor="?colorOnSecondary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/textViewVATLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewVATLabel"
+                tools:text="0.57 ₼" />
+
+            <TextView
+                android:id="@+id/textViewPaymentMethodsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_payment_methods"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/textViewVAT"
+                app:layout_constraintTop_toBottomOf="@id/textViewVAT" />
+
+            <View
+                android:id="@+id/viewSeparatorPaymentMethods"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/colorDarkGray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/textViewPaymentMethodsLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewPaymentMethodsLabel" />
+
+            <TextView
+                android:id="@+id/textViewCashlessPaymentLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_cashless_payment"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/textViewPaymentMethodsLabel"
+                app:layout_constraintTop_toBottomOf="@id/viewSeparatorPaymentMethods" />
+
+            <TextView
+                android:id="@+id/textViewCashlessPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:textColor="?colorOnSecondary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/textViewCashlessPaymentLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewCashlessPaymentLabel"
+                tools:text="0.00 ₼" />
+
+            <TextView
+                android:id="@+id/textViewCashPaymentLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_cash_payment"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/textViewCashlessPayment"
+                app:layout_constraintTop_toBottomOf="@id/textViewCashlessPayment" />
+
+            <TextView
+                android:id="@+id/textViewCashPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:textColor="?colorOnSecondary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/textViewCashPaymentLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewCashPaymentLabel"
+                tools:text="3.20 ₼" />
+
+            <TextView
+                android:id="@+id/textViewBonusLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_bonus"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/textViewCashPayment"
+                app:layout_constraintTop_toBottomOf="@id/textViewCashPayment" />
+
+            <TextView
+                android:id="@+id/textViewBonus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:textColor="?colorOnSecondary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/textViewBonusLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewBonusLabel"
+                tools:text="0.00 ₼" />
+
+            <TextView
+                android:id="@+id/textViewCreditLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_credit"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/textViewBonus"
+                app:layout_constraintTop_toBottomOf="@id/textViewBonus" />
+
+            <TextView
+                android:id="@+id/textViewCredit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:textColor="?colorOnSecondary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/textViewCreditLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewCreditLabel"
+                tools:text="0.00 ₼" />
+
+            <TextView
+                android:id="@+id/textViewAdvanceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_advance"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/textViewCredit"
+                app:layout_constraintTop_toBottomOf="@id/textViewCredit" />
+
+            <TextView
+                android:id="@+id/textViewAdvance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:textColor="?colorOnSecondary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/textViewAdvanceLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewAdvanceLabel"
+                tools:text="0.00 ₼" />
+
+            <View
+                android:id="@+id/viewSeparatorID"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/colorDarkGray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/textViewAdvance"
+                app:layout_constraintTop_toBottomOf="@id/textViewAdvance" />
+
+            <TextView
+                android:id="@+id/textViewShortIDLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_short_id"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/viewSeparatorID"
+                app:layout_constraintTop_toBottomOf="@id/viewSeparatorID" />
+
+            <TextView
+                android:id="@+id/textViewShortID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:textColor="?colorOnSecondary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/textViewShortIDLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewShortIDLabel"
+                tools:text="GAbyED5dC5pw" />
+
+            <ImageButton
+                android:id="@+id/imageButtonCopyShortID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="?selectableItemBackground"
+                android:padding="4dp"
+                android:src="@drawable/ic_copy"
+                android:tint="?colorOnSecondary"
+                android:tooltipText="@string/msg_copy"
+                app:layout_constraintBottom_toBottomOf="@id/textViewShortID"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textViewShortID" />
+
+            <ImageView
+                android:id="@+id/imageViewQRCode"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewShortID"
+                app:layout_constraintWidth_percent="0.4" />
+
+            <View
+                android:id="@+id/viewSeparatorCashBack"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/colorDarkGray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/textViewShortID"
+                app:layout_constraintTop_toBottomOf="@id/imageViewQRCode" />
+
+            <TextView
+                android:id="@+id/textViewCashBackLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_cashback"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/viewSeparatorCashBack"
+                app:layout_constraintTop_toBottomOf="@id/viewSeparatorCashBack" />
+
+            <TextView
+                android:id="@+id/textViewCashBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_ui_display_medium"
+                android:textColor="?colorOnSecondary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/textViewCashBackLabel"
+                app:layout_constraintTop_toBottomOf="@id/textViewCashBackLabel"
+                tools:text="ƏDV qaytarılması həyata keçirilməyib" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "117236883140",
+    "project_id": "edvapp-7d5a5",
+    "storage_bucket": "edvapp-7d5a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117236883140:android:d9a2f4692d406b3b30b391",
+        "android_client_info": {
+          "package_name": "com.mirkamalg.edvapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117236883140-legpdfh2t96j4qfvheel6gbmap6eo7om.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mirkamalg.edvapp",
+            "certificate_hash": "af2ce8a3e4ae191c72bbff84cc56aab527ff81e5"
+          }
+        },
+        {
+          "client_id": "117236883140-utkp3vpce5drefg7ev8u960uc151mj2q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDBAEamTfxfloPzA8y05hNOlMeYzTHj5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117236883140-utkp3vpce5drefg7ev8u960uc151mj2q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

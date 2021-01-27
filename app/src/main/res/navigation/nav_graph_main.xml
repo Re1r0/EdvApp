@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/chequesFragment">
+    <fragment
+        android:id="@+id/chequesFragment"
+        android:name="com.mirkamalg.edvapp.ui.fragments.cheques.ChequesFragment"
+        android:label="ChequesFragment"
+        tools:layout="@layout/fragment_cheques">
+        <action
+            android:id="@+id/action_chequesFragment_to_QRScannerFragment"
+            app:destination="@id/QRScannerFragment" />
+        <action
+            android:id="@+id/action_chequesFragment_to_chequeDetailsFragment"
+            app:destination="@id/chequeDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/QRScannerFragment"
+        android:name="com.mirkamalg.edvapp.ui.fragments.qr_scanner.QRScannerFragment"
+        android:label="QRScannerFragment"
+        tools:layout="@layout/fragment_qr_scanner">
+        <action
+            android:id="@+id/action_QRScannerFragment_to_scanResultBottomSheet"
+            app:destination="@id/scanResultBottomSheet" />
+    </fragment>
+    <dialog
+        android:id="@+id/scanResultBottomSheet"
+        android:name="com.mirkamalg.edvapp.ui.fragments.bottom_sheets.scan_result.ScanResultBottomSheet"
+        android:label="ScanResultBottomSheet"
+        tools:layout="@layout/sheet_scan_result">
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </dialog>
+    <fragment
+        android:id="@+id/chequeDetailsFragment"
+        android:name="com.mirkamalg.edvapp.ui.fragments.cheque_details.ChequeDetailsFragment"
+        android:label="ChequeDetailsFragment"
+        tools:layout="@layout/fragment_cheque_details">
+        <argument
+            android:name="chequeEntity"
+            app:argType="com.mirkamalg.edvapp.model.entities.ChequeEntity" />
+    </fragment>
+</navigation>

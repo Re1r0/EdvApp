@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="24dp"
+    app:cardElevation="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/textViewChequeSpending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_ui_display_medium"
+            android:text="@string/placeholder_question_mark"
+            android:textColor="@color/colorRed"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/viewSeparatorChequesItem"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/colorDarkGray"
+            app:layout_constraintBottom_toBottomOf="@id/textViewChequeSpending"
+            app:layout_constraintStart_toEndOf="@id/textViewChequeSpending"
+            app:layout_constraintTop_toTopOf="@id/textViewChequeSpending" />
+
+        <TextView
+            android:id="@+id/textViewChequeVAT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/sf_ui_display_medium"
+            android:text="@string/placeholder_question_mark"
+            android:textColor="@color/colorGreen"
+            android:textSize="22sp"
+            app:layout_constraintStart_toEndOf="@id/viewSeparatorChequesItem"
+            app:layout_constraintTop_toTopOf="@id/viewSeparatorChequesItem" />
+
+        <TextView
+            android:id="@+id/textViewChequeDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/sf_ui_display_medium"
+            android:text="@string/placeholder_question_mark"
+            android:textColor="@color/colorGray"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/textViewChequeSpending"
+            app:layout_constraintTop_toBottomOf="@id/textViewChequeSpending"
+            tools:text="19.01.2021  15:35" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_right_navigation"
+            android:tint="@color/colorGray"
+            app:layout_constraintBottom_toBottomOf="@id/textViewChequeDateTime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textViewChequeDateTime" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

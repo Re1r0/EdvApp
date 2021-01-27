@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textViewItemName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:textColor="?colorOnSecondary"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="XONCA SMIT BULKA" />
+
+    <ImageView
+        android:id="@+id/imageViewNumberSign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/textViewItemName"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemName"
+        app:layout_constraintVertical_bias="0" />
+
+    <TextView
+        android:id="@+id/textViewItemCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:textColor="?colorOnSecondary"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewNumberSign"
+        app:layout_constraintStart_toEndOf="@id/imageViewNumberSign"
+        app:layout_constraintTop_toTopOf="@id/imageViewNumberSign"
+        tools:text="0.180" />
+
+    <ImageView
+        android:id="@+id/imageViewManatSign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_manat"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemName" />
+
+    <TextView
+        android:id="@+id/textViewItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:textColor="?colorOnSecondary"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewManatSign"
+        app:layout_constraintStart_toEndOf="@id/imageViewManatSign"
+        app:layout_constraintTop_toTopOf="@id/imageViewManatSign"
+        tools:text="0.45" />
+
+    <ImageView
+        android:id="@+id/imageViewEqualsSign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_equals"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemName" />
+
+    <TextView
+        android:id="@+id/textViewItemResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:textColor="?colorOnSecondary"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewEqualsSign"
+        app:layout_constraintStart_toEndOf="@id/imageViewEqualsSign"
+        app:layout_constraintTop_toTopOf="@id/imageViewEqualsSign"
+        tools:text="0.90" />
+
+    <View
+        android:id="@+id/viewSeparatorChequeItems"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/colorDarkGray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/textViewItemName"
+        app:layout_constraintStart_toStartOf="@id/textViewItemName" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
