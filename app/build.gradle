@@ -117,4 +117,7 @@ dependencies {
 
     // Kotlin object (de)serialization
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1"
+
+    //QR code generation library
+    implementation 'com.google.zxing:core:3.4.0'
 }

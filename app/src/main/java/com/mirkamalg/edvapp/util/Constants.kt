@@ -12,6 +12,7 @@ const val CHEQUES_DATABASE_NAME = "CHEQUES_DATABASE_NAME"
 
 // Misc
 const val MANAT_CHAR = '₼'
+const val PREFIX_EGOV_URL = "https://monitoring.e-kassa.gov.az/#/index?doc="
 
 // APIs
 const val BASE_URL_CHEQUE_DETAILS = "https://monitoring.e-kassa.gov.az/pks-portal/1.0.0/"

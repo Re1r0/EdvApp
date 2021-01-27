@@ -1,11 +1,16 @@
 package com.mirkamalg.edvapp.viewmodels
 
 import android.app.Application
+import android.graphics.Bitmap
+import android.graphics.Color
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
 import com.mirkamalg.edvapp.local.database.ChequesDatabase
 import com.mirkamalg.edvapp.model.data.CashbackData
 import com.mirkamalg.edvapp.model.data.ChequeData
@@ -41,6 +46,10 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
     private val _viewedChequeCashbackStatus = MutableLiveData<CashbackData>()
     val viewedChequeCashbackStatus: LiveData<CashbackData>
         get() = _viewedChequeCashbackStatus
+
+    private val _generatedQRBitmap = MutableLiveData<Bitmap>()
+    val generatedQRBitmap: LiveData<Bitmap>
+        get() = _generatedQRBitmap
 
     fun getAllCheques() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -159,6 +168,32 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
                 withContext(Dispatchers.Main) {
                     _viewedChequeData.value = converted
                     _viewedChequeData.value = null
+                }
+            }
+        }
+    }
+
+    fun generateQRCodeFromString(string: String) {
+        viewModelScope.launch(Dispatchers.Default) {
+            val width = 500
+            val height = 500
+            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            val codeWriter = MultiFormatWriter()
+            try {
+                val bitMatrix = codeWriter.encode(string, BarcodeFormat.QR_CODE, width, height)
+                for (x in 0 until width) {
+                    for (y in 0 until height) {
+                        bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
+                    }
+                }
+                withContext(Dispatchers.Main) {
+                    _generatedQRBitmap.value = bitmap
+                    _generatedQRBitmap.value = null
+                }
+            } catch (e: WriterException) {
+                withContext(Dispatchers.Main) {
+                    _error.value = e.message
+                    _error.value = null
                 }
             }
         }

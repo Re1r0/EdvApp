@@ -16,6 +16,7 @@ import com.mirkamalg.edvapp.model.data.ChequeData
 import com.mirkamalg.edvapp.model.data.ChequeWrapperData
 import com.mirkamalg.edvapp.ui.fragments.cheque_details.recyclerview.ChequeItemsListAdapter
 import com.mirkamalg.edvapp.util.ERROR_RESPONSE_BODY_NULL
+import com.mirkamalg.edvapp.util.PREFIX_EGOV_URL
 import com.mirkamalg.edvapp.util.copyToClipboard
 import com.mirkamalg.edvapp.viewmodels.ChequesViewModel
 
@@ -88,8 +89,10 @@ class ChequeDetailsFragment : Fragment() {
             }
         }
         chequesViewModel.viewedChequeData.observe(viewLifecycleOwner) {
-            //TODO (generally) complete data class, complete details screen and writing to database
             it?.let {
+                chequesViewModel.generateQRCodeFromString(
+                    "${PREFIX_EGOV_URL}${it.cheque?.shortDocumentId}"
+                )
                 loadDataToUI(it)
                 it.cheque?.let { it1 -> updateLocalChequeData(it1) }
             }
@@ -100,6 +103,11 @@ class ChequeDetailsFragment : Fragment() {
                 it.returnedAmount?.let {
                     binding.textViewCashBack.text = getText(R.string.msg_cashback_refunded)
                 }
+            }
+        }
+        chequesViewModel.generatedQRBitmap.observe(viewLifecycleOwner) {
+            it?.let {
+                binding.imageViewQRCode.setImageBitmap(it)
             }
         }
     }
