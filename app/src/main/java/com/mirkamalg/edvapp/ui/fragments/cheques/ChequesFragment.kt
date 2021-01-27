@@ -84,9 +84,14 @@ class ChequesFragment : Fragment() {
     }
 
     private fun setOnClickListeners() {
-        binding.floationActionButtonScanQRCode.setOnClickListener {
-            if (handlePermissions()) {
-                navigateToQRScanner()
+        binding.apply {
+            floationActionButtonScanQRCode.setOnClickListener {
+                if (handlePermissions()) {
+                    navigateToQRScanner()
+                }
+            }
+            imageButtonInfoAboutApp.setOnClickListener {
+                findNavController().navigate(ChequesFragmentDirections.actionChequesFragmentToAppInfoFragment())
             }
         }
     }

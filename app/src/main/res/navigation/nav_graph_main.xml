@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_chequesFragment_to_chequeDetailsFragment"
             app:destination="@id/chequeDetailsFragment" />
+        <action
+            android:id="@+id/action_chequesFragment_to_appInfoFragment"
+            app:destination="@id/appInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/QRScannerFragment"
@@ -43,4 +46,9 @@
             android:name="chequeEntity"
             app:argType="com.mirkamalg.edvapp.model.entities.ChequeEntity" />
     </fragment>
+    <fragment
+        android:id="@+id/appInfoFragment"
+        android:name="com.mirkamalg.edvapp.ui.fragments.app_info.AppInfoFragment"
+        android:label="AppInfoFragment"
+        tools:layout="@layout/fragment_app_info" />
 </navigation>

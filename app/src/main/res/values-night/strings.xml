@@ -45,4 +45,9 @@
     <string name="err_cheque_data_not_found">Çek məlumatları tapılmadı</string>
     <string name="msg_cashback_refunded">ƏDV qaytarılması həyata keçirilib</string>
     <string name="msg_cheque_has_already_been_added">Çek artıq əlavə edilib</string>
+    <string name="msg_description">Açıqlama</string>
+    <string name="msg_author">Müəllif</string>
+    <string name="msg_mirkamal_qasimov">Mirkamal Qasımov</string>
+    <string name="msg_version">Versiya</string>
+    <string name="msg_app_version">1.0.0</string>
 </resources>
