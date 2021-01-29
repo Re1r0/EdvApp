@@ -46,6 +46,7 @@
         android:padding="4dp"
         android:src="@drawable/ic_info"
         android:tint="?colorOnSecondary"
+        android:transitionName="infoImageVat"
         android:tooltipText="@string/title_about_vat"
         app:layout_constraintBottom_toBottomOf="@id/topBarVat"
         app:layout_constraintEnd_toEndOf="@id/topBarVat"

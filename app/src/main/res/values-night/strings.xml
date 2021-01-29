@@ -57,4 +57,6 @@
     <string name="title_vat">ƏDV</string>
     <string name="title_about_vat">ƏDV haqqında</string>
     <string name="action_open_in_browser">Brauzerdə aç</string>
+    <string name="msg_info_about_vat">Əlavə dəyər vergisi (ƏDV) istehlak vergisinin növüdür. Bu vergi məhsula və ya materiala hər bir istehsal və çatdırma (distribusiya) mərhələsində əlavə olunan bazar dəyərinə qoyulur, və axırda istehlakçının üzərinə düşür. Bu satış vergisindən fərqlidir, çünki satış vergisi alış-veriş nöqtəsində götürülür.</string>
+    <string name="url_about_vat_wiki">https://az.wikipedia.org/wiki/%C6%8Flav%C9%99_d%C9%99y%C9%99r_vergisi</string>
 </resources>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.mirkamalg.edvapp.databinding.FragmentVatBinding
 
@@ -35,8 +36,11 @@ class VATFragment : Fragment() {
             findNavController().popBackStack()
         }
         binding.imageButtoninfoVat.setOnClickListener {
-            //TODO navigate
-            findNavController().navigate(VATFragmentDirections.actionVATFragmentToVATInfoFragment())
+            val extras = FragmentNavigatorExtras(binding.imageButtoninfoVat to "infoImageVat")
+            findNavController().navigate(
+                VATFragmentDirections.actionVATFragmentToVATInfoFragment(),
+                extras
+            )
         }
     }
 }
