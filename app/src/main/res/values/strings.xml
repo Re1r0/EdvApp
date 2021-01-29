@@ -6,7 +6,7 @@
     <string name="msg_onboarding_page_three">Əlavə olunan çeklər\nhaqda qaytarılmalı\nolan ƏDV və digər\nməlumatları görüntülə!</string>
     <string name="msg_lets_get_started">Başlayaq!</string>
     <string name="title_cheques">Çeklər</string>
-    <string name="msg_about_app">Tətbiq haqqında</string>
+    <string name="title_about_app">Tətbiq haqqında</string>
     <string name="msg_vat_calculator">ƏDV kalkulyator</string>
     <string name="msg_total_spending">Cəmi xərc</string>
     <string name="msg_zero_manats">0.00 ₼</string>
@@ -50,4 +50,11 @@
     <string name="msg_mirkamal_qasimov">Mirkamal Qasımov</string>
     <string name="msg_version">Versiya</string>
     <string name="msg_app_version">1.0.0</string>
+    <string name="msg_app_description">Tətbiq 1 nəfər tərəfindən \"side project\" olaraq hazırlanmışdır. Tətbiqin əsas məqsədi çeklərdə yerləşən QR kodu asanlıqla oxudaraq məhsullar və ƏDV haqda məlumat almaq imkanı yaratmaqdır. Məlumatlar monitoring.e-kassa.gov.az saytından əldə edilir. Əldə edilən məlumatlar istifadəçinin telefonunda qalır və heç bir formada cihazdan kənara göndərilmir!</string>
+    <string name="msg_e_kassa_url">monitoring.e-kassa.gov.az</string>
+    <string name="url_e_kassa">https://monitoring.e-kassa.gov.az/</string>
+    <string name="title_expenses">Xərclər</string>
+    <string name="title_vat">ƏDV</string>
+    <string name="title_about_vat">ƏDV haqqında</string>
+    <string name="action_open_in_browser">Brauzerdə aç</string>
 </resources>

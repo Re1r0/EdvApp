@@ -18,6 +18,12 @@
         <action
             android:id="@+id/action_chequesFragment_to_appInfoFragment"
             app:destination="@id/appInfoFragment" />
+        <action
+            android:id="@+id/action_chequesFragment_to_expensesFragment"
+            app:destination="@id/expensesFragment" />
+        <action
+            android:id="@+id/action_chequesFragment_to_VATFragment"
+            app:destination="@id/VATFragment" />
     </fragment>
     <fragment
         android:id="@+id/QRScannerFragment"
@@ -51,4 +57,23 @@
         android:name="com.mirkamalg.edvapp.ui.fragments.app_info.AppInfoFragment"
         android:label="AppInfoFragment"
         tools:layout="@layout/fragment_app_info" />
+    <fragment
+        android:id="@+id/expensesFragment"
+        android:name="com.mirkamalg.edvapp.ui.fragments.expenses.ExpensesFragment"
+        android:label="ExpensesFragment"
+        tools:layout="@layout/fragment_expenses" />
+    <fragment
+        android:id="@+id/VATFragment"
+        android:name="com.mirkamalg.edvapp.ui.fragments.vat.VATFragment"
+        android:label="VATFragment"
+        tools:layout="@layout/fragment_vat">
+        <action
+            android:id="@+id/action_VATFragment_to_VATInfoFragment"
+            app:destination="@id/VATInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/VATInfoFragment"
+        android:name="com.mirkamalg.edvapp.ui.fragments.vat_info.VATInfoFragment"
+        android:label="VATInfoFragment"
+        tools:layout="@layout/fragment_vat_info" />
 </navigation>

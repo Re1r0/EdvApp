@@ -72,7 +72,7 @@ class ChequeDetailsFragment : Fragment() {
 
             }
             imageButtonCopyShortID.setOnClickListener {
-                copyToClipboard(binding.textViewShortID.text.toString())
+                context.copyToClipboard(binding.textViewShortID.text.toString())
                 Toast.makeText(
                     context,
                     getString(R.string.msg_short_document_id_was_copied),
