@@ -18,5 +18,6 @@
     <color name="colorLightGreen">#E6FFDC</color>
     <color name="colorGray">#B1B1B1</color>
     <color name="colorDarkGray">#707070</color>
+    <color name="colorLightGray">#33E4E4E4</color>
 
 </resources>

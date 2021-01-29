@@ -11,19 +11,46 @@
         tools:layout="@layout/fragment_cheques">
         <action
             android:id="@+id/action_chequesFragment_to_QRScannerFragment"
-            app:destination="@id/QRScannerFragment" />
+            app:destination="@id/QRScannerFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
         <action
             android:id="@+id/action_chequesFragment_to_chequeDetailsFragment"
-            app:destination="@id/chequeDetailsFragment" />
+            app:destination="@id/chequeDetailsFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
         <action
             android:id="@+id/action_chequesFragment_to_appInfoFragment"
-            app:destination="@id/appInfoFragment" />
+            app:destination="@id/appInfoFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
         <action
             android:id="@+id/action_chequesFragment_to_expensesFragment"
-            app:destination="@id/expensesFragment" />
+            app:destination="@id/expensesFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
         <action
             android:id="@+id/action_chequesFragment_to_VATFragment"
-            app:destination="@id/VATFragment" />
+            app:destination="@id/VATFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_chequesFragment_to_VATCalculatorFragment"
+            app:destination="@id/VATCalculatorFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
     <fragment
         android:id="@+id/QRScannerFragment"
@@ -76,4 +103,9 @@
         android:name="com.mirkamalg.edvapp.ui.fragments.vat_info.VATInfoFragment"
         android:label="VATInfoFragment"
         tools:layout="@layout/fragment_vat_info" />
+    <fragment
+        android:id="@+id/VATCalculatorFragment"
+        android:name="com.mirkamalg.edvapp.ui.fragments.vat_calculator.VATCalculatorFragment"
+        android:label="VATCalculatorFragment"
+        tools:layout="@layout/fragment_vat_calculator" />
 </navigation>

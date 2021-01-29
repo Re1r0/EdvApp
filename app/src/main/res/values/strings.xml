@@ -7,7 +7,7 @@
     <string name="msg_lets_get_started">Başlayaq!</string>
     <string name="title_cheques">Çeklər</string>
     <string name="title_about_app">Tətbiq haqqında</string>
-    <string name="msg_vat_calculator">ƏDV kalkulyator</string>
+    <string name="title_vat_calculator">ƏDV kalkulyator</string>
     <string name="msg_total_spending">Cəmi xərc</string>
     <string name="msg_zero_manats">0.00 ₼</string>
     <string name="msg_qr_scanner">QR skanner</string>
@@ -59,4 +59,6 @@
     <string name="action_open_in_browser">Brauzerdə aç</string>
     <string name="msg_info_about_vat">Əlavə dəyər vergisi (ƏDV) istehlak vergisinin növüdür. Bu vergi məhsula və ya materiala hər bir istehsal və çatdırma (distribusiya) mərhələsində əlavə olunan bazar dəyərinə qoyulur, və axırda istehlakçının üzərinə düşür. Bu satış vergisindən fərqlidir, çünki satış vergisi alış-veriş nöqtəsində götürülür.</string>
     <string name="url_about_vat_wiki">https://az.wikipedia.org/wiki/%C6%8Flav%C9%99_d%C9%99y%C9%99r_vergisi</string>
+    <string name="msg_total_vat">Cəmi ƏDV</string>
+    <string name="msg_manat_sign">₼</string>
 </resources>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/topBarVatCalculator"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/buttonGoBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:src="@drawable/ic_back"
+        android:tint="?colorOnSecondary"
+        android:tooltipText="@string/msg_to_back"
+        app:layout_constraintBottom_toBottomOf="@id/topBarVatCalculator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topBarVatCalculator" />
+
+    <TextView
+        android:id="@+id/textViewTitleVatCalculator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:text="@string/title_vat_calculator"
+        android:textColor="?colorOnSecondary"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/topBarVatCalculator"
+        app:layout_constraintStart_toEndOf="@id/buttonGoBack"
+        app:layout_constraintTop_toTopOf="@id/topBarVatCalculator" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerVatInput"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/topBarVatCalculator">
+
+        <TextView
+            android:id="@+id/textViewVatCalculatorInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:maxLength="5"
+            android:textColor="?colorOnSecondary"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textViewManatSign"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/textViewManatSign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/sf_ui_display_medium"
+            android:text="@string/msg_manat_sign"
+            android:textColor="?colorOnSecondary"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textViewPaymentMethodsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:text="@string/msg_business_code"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/containerVatInput" />
+
+    <!--    TODO change to spinner-->
+    <TextView
+        android:id="@+id/textViewStoreTaxNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:textColor="?colorOnSecondary"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/textViewPaymentMethodsLabel"
+        app:layout_constraintTop_toBottomOf="@id/textViewPaymentMethodsLabel"
+        tools:text="1001994141-10017" />
+
+    <TextView
+        android:id="@+id/textViewVatResultLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:text="@string/msg_business_code"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/textViewStoreTaxNumber"
+        app:layout_constraintTop_toBottomOf="@id/textViewStoreTaxNumber" />
+
+    <TextView
+        android:id="@+id/textViewVatResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:text="@string/msg_zero_manats"
+        android:textColor="?colorOnSecondary"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/textViewVatResultLabel"
+        app:layout_constraintTop_toBottomOf="@id/textViewVatResultLabel" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -49,7 +49,7 @@
         android:padding="4dp"
         android:src="@drawable/ic_calculator"
         android:tint="?colorOnSecondary"
-        android:tooltipText="@string/msg_vat_calculator"
+        android:tooltipText="@string/title_vat_calculator"
         app:layout_constraintBottom_toBottomOf="@id/imageButtonInfoAboutApp"
         app:layout_constraintEnd_toStartOf="@id/imageButtonInfoAboutApp"
         app:layout_constraintTop_toTopOf="@id/imageButtonInfoAboutApp" />
@@ -136,7 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_ui_display_medium"
-                android:text="@string/msg_total_spending"
+                android:text="@string/msg_total_vat"
                 android:textColor="?colorOnSecondary"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"

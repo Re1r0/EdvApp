@@ -93,6 +93,9 @@ class ChequesFragment : Fragment() {
             imageButtonInfoAboutApp.setOnClickListener {
                 findNavController().navigate(ChequesFragmentDirections.actionChequesFragmentToAppInfoFragment())
             }
+            imageButtonCalculator.setOnClickListener {
+                findNavController().navigate(ChequesFragmentDirections.actionChequesFragmentToVATCalculatorFragment())
+            }
             cardViewExpenses.setOnClickListener {
                 findNavController().navigate(ChequesFragmentDirections.actionChequesFragmentToExpensesFragment())
             }
