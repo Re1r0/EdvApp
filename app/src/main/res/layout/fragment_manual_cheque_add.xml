@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
+
+    <ImageButton
+        android:id="@+id/buttonGoBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:src="@drawable/ic_back"
+        android:tint="?colorOnSecondary"
+        android:tooltipText="@string/msg_to_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewShortIDLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:text="@string/msg_short_id"
+        android:textColor="?colorOnSecondary"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="@id/buttonGoBack"
+        app:layout_constraintTop_toBottomOf="@id/buttonGoBack" />
+
+    <ImageView
+        android:id="@+id/imageViewReceipt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:src="@drawable/ic_receipt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewShortIDNote" />
+
+    <TextView
+        android:id="@+id/textViewShortIDNote"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:text="@string/msg_enter_short_id_instruction"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toStartOf="@id/imageViewReceipt"
+        app:layout_constraintStart_toStartOf="@id/textViewShortIDLabel"
+        app:layout_constraintTop_toBottomOf="@id/textViewShortIDLabel" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutShortID"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:hint="@string/msg_short_id"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@id/imageViewReceipt"
+        app:layout_constraintStart_toStartOf="@id/textViewShortIDLabel"
+        app:layout_constraintTop_toBottomOf="@id/textViewShortIDNote">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditTextShortID"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:outlineAmbientShadowColor="@color/colorAccent"
+        android:outlineSpotShadowColor="@color/colorAccent"
+        android:padding="12dp"
+        android:text="@string/action_add"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@id/textInputLayoutShortID"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutShortID" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationViewSuccess"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="1dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonAdd"
+        app:layout_constraintWidth_percent="0.35"
+        app:lottie_fileName="lottie_success.json"
+        app:lottie_loop="false" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

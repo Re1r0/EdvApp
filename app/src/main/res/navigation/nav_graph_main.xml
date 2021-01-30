@@ -60,6 +60,13 @@
         <action
             android:id="@+id/action_QRScannerFragment_to_scanResultBottomSheet"
             app:destination="@id/scanResultBottomSheet" />
+        <action
+            android:id="@+id/action_QRScannerFragment_to_manualChequeAddFragment"
+            app:destination="@id/manualChequeAddFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/wait"
+            app:popEnterAnim="@anim/wait"
+            app:popExitAnim="@anim/slide_down" />
     </fragment>
     <dialog
         android:id="@+id/scanResultBottomSheet"
@@ -108,4 +115,9 @@
         android:name="com.mirkamalg.edvapp.ui.fragments.vat_calculator.VATCalculatorFragment"
         android:label="VATCalculatorFragment"
         tools:layout="@layout/fragment_vat_calculator" />
+    <fragment
+        android:id="@+id/manualChequeAddFragment"
+        android:name="com.mirkamalg.edvapp.ui.fragments.manual_cheque_add.ManualChequeAddFragment"
+        android:label="ManualChequeAddFragment"
+        tools:layout="@layout/fragment_manual_cheque_add" />
 </navigation>

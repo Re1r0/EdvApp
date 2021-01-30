@@ -20,7 +20,10 @@ interface ChequeDatabaseDAO {
     fun setCashBackRefundedTrue(documentID: String)
 
     @Query("SELECT * from cheques_table where document_id = :chequeID")
-    fun getChequeByID(chequeID: String): ChequeEntity
+    fun getChequeByID(chequeID: String): ChequeEntity?
+
+    @Query("SELECT * from cheques_table where short_document_id = :shortID")
+    fun getChequeByShortID(shortID: String): ChequeEntity?
 
     @Query("SELECT * from cheques_table")
     fun getAllCheques(): List<ChequeEntity>

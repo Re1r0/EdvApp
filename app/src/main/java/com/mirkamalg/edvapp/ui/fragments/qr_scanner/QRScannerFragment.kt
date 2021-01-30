@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -73,11 +74,29 @@ class QRScannerFragment : Fragment() {
     }
 
     private fun setOnClickListeners() {
-        binding.buttonGoBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
-        binding.imageButtonPickFromGallery.setOnClickListener {
+        binding.apply {
+            buttonGoBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
+            imageButtonPickFromGallery.setOnClickListener {
 
+            }
+            imageButtonKeyboard.setOnClickListener {
+                previewViewQRScanner.isVisible = false
+                imageViewOverlayScanner.isVisible = false
+                startAnimation()
+                findNavController().navigate(QRScannerFragmentDirections.actionQRScannerFragmentToManualChequeAddFragment())
+            }
+        }
+    }
+
+    private fun startAnimation() {
+        ValueAnimator.ofFloat(0f, -300f).apply {
+            duration = 600
+            addUpdateListener {
+                binding.root.translationY = it.animatedValue as Float
+            }
+            start()
         }
     }
 

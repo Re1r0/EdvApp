@@ -27,6 +27,10 @@ class ChequesRepository(private val chequesDatabase: ChequesDatabase? = null) : 
         return chequeDatabaseDAO?.getChequeByID(documentID)
     }
 
+    fun fetchChequeDetailsFromDatabaseByShortID(shortID: String): ChequeEntity? {
+        return chequeDatabaseDAO?.getChequeByShortID(shortID)
+    }
+
     fun addChequeToDatabase(chequeEntity: ChequeEntity) {
         chequeDatabaseDAO?.insertNewCheque(chequeEntity)
     }

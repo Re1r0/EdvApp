@@ -65,4 +65,7 @@
     <string name="err_error">Səhv</string>
     <string name="msg_vat_to_be_refunded">Qaytarılmalı olan ƏDV</string>
     <string name="msg_method_of_payment">Ödənişin üsulu</string>
+    <string name="msg_enter_short_id_instruction">Çekin aşağı hissəsində yerləşən \"Fiskal İD\"-ni daxil edin.</string>
+    <string name="action_add">Əlavə et</string>
+    <string name="err_short_id_must_be_twelve">Fiskal İD 12 simvoldan ibarət olmalıdır.</string>
 </resources>

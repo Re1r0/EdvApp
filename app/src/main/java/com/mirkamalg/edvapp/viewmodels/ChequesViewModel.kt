@@ -52,6 +52,10 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
     val generatedQRBitmap: LiveData<Bitmap>
         get() = _generatedQRBitmap
 
+    private val _checkedChequeEntity = MutableLiveData<ChequeEntity>()
+    val checkedChequeEntity: LiveData<ChequeEntity>
+        get() = _checkedChequeEntity
+
     fun getAllCheques() {
         viewModelScope.launch(Dispatchers.IO) {
             val cheques = chequesRepository.getAllCheques()?.asReversed()
@@ -178,6 +182,16 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
                     _viewedChequeData.value = converted
                     _viewedChequeData.value = null
                 }
+            }
+        }
+    }
+
+    fun getChequeDetailsFromDatabaseByShortID(shortID: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val cheque = chequesRepository.fetchChequeDetailsFromDatabaseByShortID(shortID)
+            withContext(Dispatchers.Main) {
+                _checkedChequeEntity.value = cheque
+                _checkedChequeEntity.value = null
             }
         }
     }

@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.mirkamalg.edvapp.R
 import com.mirkamalg.edvapp.ui.activities.main.MainActivity
@@ -30,7 +29,6 @@ class SplashActivity : AppCompatActivity() {
         val dontShowOnBoardingScreen = PreferencesManager.readBooleanPreference(
             DONT_SHOW_ONBOARDING_SCREEN, false
         )
-        Log.e("HERE", dontShowOnBoardingScreen.toString())
 
         Handler(mainLooper).postDelayed({
             if (dontShowOnBoardingScreen) {
