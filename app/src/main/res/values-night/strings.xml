@@ -61,4 +61,5 @@
     <string name="url_about_vat_wiki">https://az.wikipedia.org/wiki/%C6%8Flav%C9%99_d%C9%99y%C9%99r_vergisi</string>
     <string name="msg_total_vat">Cəmi ƏDV</string>
     <string name="msg_manat_sign">₼</string>
+    <string name="err_cannot_connect_to_server">Serverlə əlaqə yaradıla bilmədi</string>
 </resources>

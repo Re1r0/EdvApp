@@ -53,6 +53,74 @@
         app:layout_constraintEnd_toEndOf="@id/topBarChequeDetails"
         app:layout_constraintTop_toTopOf="@id/topBarChequeDetails" />
 
+    <ImageView
+        android:id="@+id/imageViewConnectionLost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/internet_lost"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBarChequeDetails" />
+
+    <TextView
+        android:id="@+id/textViewConnectionLost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:text="@string/err_cannot_connect_to_server"
+        android:textColor="?colorOnSecondary"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewConnectionLost" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/buttonRetry"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="32dp"
+        android:background="?selectableItemBackground"
+        android:backgroundTint="@color/colorPrimary"
+        android:padding="16dp"
+        android:visibility="invisible"
+        app:cardCornerRadius="50dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewConnectionLost">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:foregroundGravity="center"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_retry"
+                app:tint="@color/white" />
+
+        </FrameLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBarChequeDetails" />
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollViewChequeDetails"
         android:layout_width="match_parent"
@@ -521,9 +589,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/sf_ui_display_medium"
+                android:text="@string/msg_cashback_not_refunded"
                 android:textColor="?colorOnSecondary"
                 android:textSize="20sp"
-                android:text="@string/msg_cashback_not_refunded"
                 app:layout_constraintStart_toStartOf="@id/textViewCashBackLabel"
                 app:layout_constraintTop_toBottomOf="@id/textViewCashBackLabel"
                 tools:text="ƏDV qaytarılması həyata keçirilməyib" />

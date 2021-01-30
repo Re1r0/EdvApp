@@ -1,6 +1,7 @@
 package com.mirkamalg.edvapp.ui.fragments.cheque_details
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,13 +50,7 @@ class ChequeDetailsFragment : Fragment() {
         setOnClickListeners()
         configureRecyclerView()
 
-        // Fetch check requests only if there is no local data
-        if (args.chequeEntity.sum == null) {
-            chequesViewModel.getChequeDetails(args.chequeEntity.documentID)
-        } else {
-            //Load from local db if data is stored
-            chequesViewModel.getChequeDetailsFromDatabase(args.chequeEntity.documentID)
-        }
+        fetchChequeDetails()
     }
 
     private fun setOnClickListeners() {
@@ -65,6 +60,9 @@ class ChequeDetailsFragment : Fragment() {
             }
             imageButtonShare.setOnClickListener {
 
+            }
+            buttonRetry.setOnClickListener {
+                fetchChequeDetails()
             }
             imageButtonCopyShortID.setOnClickListener {
                 context.copyToClipboard(binding.textViewShortID.text.toString())
@@ -85,6 +83,8 @@ class ChequeDetailsFragment : Fragment() {
         }
         chequesViewModel.viewedChequeData.observe(viewLifecycleOwner) {
             it?.let {
+                binding.progressBar.isVisible = false
+
                 chequesViewModel.generateQRCodeFromString(
                     "${PREFIX_EGOV_URL}${it.cheque?.shortDocumentId}"
                 )
@@ -169,6 +169,24 @@ class ChequeDetailsFragment : Fragment() {
         binding.recyclerViewGoods.adapter = adapter
     }
 
+    private fun fetchChequeDetails() {
+
+        binding.apply {
+            progressBar.isVisible = true
+            imageViewConnectionLost.isVisible = false
+            buttonRetry.isVisible = false
+            textViewConnectionLost.isVisible = false
+        }
+
+        // Fetch check requests only if there is no local data
+        if (args.chequeEntity.sum == null) {
+            chequesViewModel.getChequeDetails(args.chequeEntity.documentID)
+        } else {
+            //Load from local db if data is stored
+            chequesViewModel.getChequeDetailsFromDatabase(args.chequeEntity.documentID)
+        }
+    }
+
     private fun handleError(error: String) {
         when (error) {
             ERROR_RESPONSE_BODY_NULL -> {
@@ -179,7 +197,13 @@ class ChequeDetailsFragment : Fragment() {
                 ).show()
             }
             else -> {
-                Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+                binding.apply {
+                    progressBar.isVisible = false
+                    imageViewConnectionLost.isVisible = true
+                    textViewConnectionLost.isVisible = true
+                    buttonRetry.isVisible = true
+                }
+                Log.e("ChequeDetailsError", error)
             }
         }
     }
