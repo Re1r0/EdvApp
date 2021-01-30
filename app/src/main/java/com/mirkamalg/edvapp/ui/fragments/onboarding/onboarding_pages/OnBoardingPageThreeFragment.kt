@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import com.mirkamalg.edvapp.R
 import com.mirkamalg.edvapp.databinding.FragmentOnboardingPageThreeBinding
 import com.mirkamalg.edvapp.ui.activities.main.MainActivity
+import com.mirkamalg.edvapp.util.DONT_SHOW_ONBOARDING_SCREEN
+import com.mirkamalg.edvapp.util.PreferencesManager
 
 /**
  * Created by Mirkamal on 23 January 2021
@@ -33,6 +35,7 @@ class OnBoardingPageThreeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        PreferencesManager.initPreferences(requireContext())
         configureMotionLayout()
     }
 
@@ -55,8 +58,11 @@ class OnBoardingPageThreeFragment : Fragment() {
                             val value = (it.animatedValue as Float)
                             binding.textViewPostAnimationOnBoardingPageThree.alpha = value
                             if (value == 1f) {
-                                //TODO add shared preference that onboarding screen has been shown
                                 Handler(Looper.getMainLooper()).postDelayed({
+                                    PreferencesManager.writeBooleanPreference(
+                                        DONT_SHOW_ONBOARDING_SCREEN, true
+                                    )
+
                                     startActivity(Intent(context, MainActivity::class.java))
                                     activity?.finish()
                                 }, 1000)
