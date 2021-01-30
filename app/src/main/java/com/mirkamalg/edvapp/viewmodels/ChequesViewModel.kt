@@ -3,6 +3,7 @@ package com.mirkamalg.edvapp.viewmodels
 import android.app.Application
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -103,6 +104,8 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
             )
 
             chequesRepository.updateExistingCheque(newEntity)
+
+            Log.d("UpdatedCheque", newEntity.toString())
         }
     }
 
@@ -157,6 +160,12 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
                     }
                 }
             }
+        }
+    }
+
+    fun updateChequeAsCashbackRefunded(documentID: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            chequesRepository.setCashbackAsRefunded(documentID)
         }
     }
 

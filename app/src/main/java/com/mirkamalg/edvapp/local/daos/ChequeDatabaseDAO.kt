@@ -1,9 +1,6 @@
 package com.mirkamalg.edvapp.local.daos
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.mirkamalg.edvapp.model.entities.ChequeEntity
 
 /**
@@ -16,8 +13,11 @@ interface ChequeDatabaseDAO {
     @Insert
     fun insertNewCheque(chequeEntity: ChequeEntity)
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateCheque(chequeEntity: ChequeEntity)
+
+    @Query("UPDATE cheques_table SET cashback = 1 WHERE document_id = :documentID")
+    fun setCashBackRefundedTrue(documentID: String)
 
     @Query("SELECT * from cheques_table where document_id = :chequeID")
     fun getChequeByID(chequeID: String): ChequeEntity

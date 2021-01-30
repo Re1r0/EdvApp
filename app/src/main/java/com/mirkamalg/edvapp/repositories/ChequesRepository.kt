@@ -19,6 +19,10 @@ class ChequesRepository(private val chequesDatabase: ChequesDatabase? = null) : 
         return chequeDatabaseDAO?.getAllCheques()
     }
 
+    fun setCashbackAsRefunded(documentID: String) {
+        chequeDatabaseDAO?.setCashBackRefundedTrue(documentID)
+    }
+
     fun fetchChequeDetailsFromDatabase(documentID: String): ChequeEntity? {
         return chequeDatabaseDAO?.getChequeByID(documentID)
     }

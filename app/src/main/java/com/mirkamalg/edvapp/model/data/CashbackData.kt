@@ -5,7 +5,7 @@ package com.mirkamalg.edvapp.model.data
  */
 data class CashbackData(
     val returnedAmount: Double?,
-    val returnedDate: Long?,
+    val returnedDate: String?,
     val returnStatus: Int?,
     val returnRequestTransactionId: String?,
     val returnReturnTransactionId: String?

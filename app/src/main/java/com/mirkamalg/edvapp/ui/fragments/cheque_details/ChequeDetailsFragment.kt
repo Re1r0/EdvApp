@@ -56,11 +56,6 @@ class ChequeDetailsFragment : Fragment() {
             //Load from local db if data is stored
             chequesViewModel.getChequeDetailsFromDatabase(args.chequeEntity.documentID)
         }
-
-        // Fetch cashback status every time unless it is refunded
-        if (!args.chequeEntity.cashback) {
-            chequesViewModel.getChequeCashbackStatus(args.chequeEntity.shortDocumentId)
-        }
     }
 
     private fun setOnClickListeners() {
@@ -95,6 +90,11 @@ class ChequeDetailsFragment : Fragment() {
                 )
                 loadDataToUI(it)
                 it.cheque?.let { it1 -> updateLocalChequeData(it1) }
+
+                // Fetch cashback status every time unless it is refunded
+//                if (!args.chequeEntity.cashback) {
+//                    chequesViewModel.getChequeCashbackStatus(args.chequeEntity.shortDocumentId)
+//                }
             }
         }
         chequesViewModel.viewedChequeCashbackStatus.observe(viewLifecycleOwner) {
@@ -102,6 +102,7 @@ class ChequeDetailsFragment : Fragment() {
             it?.let {
                 it.returnedAmount?.let {
                     binding.textViewCashBack.text = getText(R.string.msg_cashback_refunded)
+                    updateChequeAsCashbackRefunded(args.chequeEntity.documentID)
                 }
             }
         }
@@ -110,6 +111,10 @@ class ChequeDetailsFragment : Fragment() {
                 binding.imageViewQRCode.setImageBitmap(it)
             }
         }
+    }
+
+    private fun updateChequeAsCashbackRefunded(documentID: String) {
+        chequesViewModel.updateChequeAsCashbackRefunded(documentID)
     }
 
     private fun updateLocalChequeData(data: ChequeData) {
