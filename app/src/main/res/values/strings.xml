@@ -62,4 +62,7 @@
     <string name="msg_total_vat">Cəmi ƏDV</string>
     <string name="msg_manat_sign">₼</string>
     <string name="err_cannot_connect_to_server">Serverlə əlaqə yaradıla bilmədi</string>
+    <string name="err_error">Səhv</string>
+    <string name="msg_vat_to_be_refunded">Qaytarılmalı olan ƏDV</string>
+    <string name="msg_method_of_payment">Ödənişin üsulu</string>
 </resources>
