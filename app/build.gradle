@@ -24,7 +24,13 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -113,7 +119,7 @@ dependencies {
 //    implementation "androidx.camera:camera-extensions:1.0.0-alpha20"
 
     // MLKit barcode scanning
-    implementation 'com.google.mlkit:barcode-scanning:16.1.0'
+    implementation 'com.google.mlkit:barcode-scanning:16.1.1'
 
     // Kotlin object (de)serialization
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1"

@@ -8,7 +8,7 @@ package com.mirkamalg.edvapp.util
 const val REQUEST_CODE_CAMERA_PERMISSION = 0
 
 // Database
-const val CHEQUES_DATABASE_NAME = "CHEQUES_DATABASE_NAME"
+const val CHEQUES_DATABASE_NAME = "CHEQUES_DATABASE"
 
 // Misc
 const val MANAT_CHAR = '₼'
