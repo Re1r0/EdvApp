@@ -3,7 +3,6 @@ package com.mirkamalg.edvapp.ui.fragments.cheques
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.mirkamalg.edvapp.R
@@ -62,7 +62,7 @@ class ChequesFragment : Fragment() {
 
     private fun configureObservers() {
         chequesViewModel.allCheques.observe(viewLifecycleOwner) {
-            Log.d("HERE", it.toString())
+            binding.recyclerViewCheques.layoutAnimation = null
             adapter.submitList(it)
         }
     }
@@ -102,7 +102,12 @@ class ChequesFragment : Fragment() {
                 findNavController().navigate(ChequesFragmentDirections.actionChequesFragmentToExpensesFragment())
             }
             cardViewVAT.setOnClickListener {
-                findNavController().navigate(ChequesFragmentDirections.actionChequesFragmentToVATFragment())
+                val extras =
+                    FragmentNavigatorExtras(binding.textViewTotalVATLabel to "totalVATText")
+                findNavController().navigate(
+                    ChequesFragmentDirections.actionChequesFragmentToVATFragment(),
+                    extras
+                )
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.mirkamalg.edvapp.ui.fragments.vat
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,10 @@ class VATFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementReturnTransition = null
+
         binding = FragmentVatBinding.inflate(inflater, container, false)
         return binding.root
     }

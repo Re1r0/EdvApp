@@ -63,8 +63,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:outlineAmbientShadowColor="@color/colorRed"
-        android:outlineSpotShadowColor="@color/colorRed"
         app:cardElevation="48dp"
         app:layout_constraintEnd_toStartOf="@+id/cardViewVAT"
         app:layout_constraintHorizontal_bias="0.5"
@@ -117,8 +115,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:outlineAmbientShadowColor="@color/colorGreen"
-        android:outlineSpotShadowColor="@color/colorGreen"
         app:cardElevation="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -139,6 +135,7 @@
                 android:text="@string/msg_total_vat"
                 android:textColor="?colorOnSecondary"
                 android:textSize="18sp"
+                android:transitionName="totalVATText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -174,6 +171,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
+        android:layoutAnimation="@anim/recycler_item_animation"
         android:clipToPadding="false"
         android:paddingHorizontal="16dp"
         android:paddingBottom="36dp"
