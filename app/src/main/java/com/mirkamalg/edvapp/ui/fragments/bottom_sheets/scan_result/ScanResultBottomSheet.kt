@@ -44,7 +44,7 @@ class ScanResultBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun checkIfChequeIsAlreadyAdded() {
-        chequesViewModel.getChequeDetailsFromDatabase(args.url.split("=")[1])
+        chequesViewModel.getChequeDetailsFromDatabase(args.url.split("=")[1].substring(0, 12))
     }
 
     private fun configureObservers() {
@@ -70,7 +70,7 @@ class ScanResultBottomSheet : BottomSheetDialogFragment() {
     private fun setOnClickListeners() {
         binding.cardAccept.setOnClickListener {
             val id = args.url.split("=")[1]
-            chequesViewModel.addCheque(ChequeEntity(id, id.substring(0, 12)))
+            chequesViewModel.addCheque(ChequeEntity(id.substring(0, 12), id))
 
             Toast.makeText(context, getString(R.string.msg_was_added), Toast.LENGTH_SHORT).show()
 

@@ -13,12 +13,13 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "cheques_table")
 @Parcelize
 data class ChequeEntity(
-    @PrimaryKey
-    @ColumnInfo(name = "document_id")
-    val documentID: String,
 
+    @PrimaryKey
     @ColumnInfo(name = "short_document_id")
     val shortDocumentId: String,
+
+    @ColumnInfo(name = "document_id")
+    val documentID: String,
 
     @ColumnInfo(name = "factory_number")
     val factoryNumber: String? = null,

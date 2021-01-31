@@ -19,6 +19,7 @@ interface ChequeDatabaseDAO {
     @Query("UPDATE cheques_table SET cashback = 1 WHERE document_id = :documentID")
     fun setCashBackRefundedTrue(documentID: String)
 
+    @Deprecated("Use getChequeByShortID instead")
     @Query("SELECT * from cheques_table where document_id = :chequeID")
     fun getChequeByID(chequeID: String): ChequeEntity?
 

@@ -76,8 +76,8 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
             val serializedItems = jacksonObjectMapper().writeValueAsString(data.content.items)
 
             val newEntity = ChequeEntity(
-                data.documentId,
                 data.shortDocumentId,
+                data.documentId,
                 data.factoryNumber,
                 data.cashregisterModelName,
                 data.cashregisterFactoryNumber,
@@ -185,9 +185,9 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun getChequeDetailsFromDatabase(documentID: String) {
+    fun getChequeDetailsFromDatabase(shortDocumentID: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val cheque = chequesRepository.fetchChequeDetailsFromDatabase(documentID)
+            val cheque = chequesRepository.fetchChequeDetailsFromDatabase(shortDocumentID)
             cheque?.let {
                 val converted = it.toChequeWrapperData()
                 withContext(Dispatchers.Main) {

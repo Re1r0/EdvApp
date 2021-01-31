@@ -72,8 +72,8 @@ class ManualChequeAddFragment : Fragment() {
                     if (textInputEditTextShortID.text?.isNotBlank() == true) {
                         chequesViewModel.addCheque(
                             ChequeEntity(
-                                UUID.randomUUID().toString(),
-                                binding.textInputEditTextShortID.text.toString()
+                                binding.textInputEditTextShortID.text.toString(),
+                                UUID.randomUUID().toString()
                             )
                         )
                         binding.lottieAnimationViewSuccess.apply {

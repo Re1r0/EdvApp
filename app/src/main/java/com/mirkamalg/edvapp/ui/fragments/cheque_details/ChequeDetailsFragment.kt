@@ -92,9 +92,9 @@ class ChequeDetailsFragment : Fragment() {
                 it.cheque?.let { it1 -> updateLocalChequeData(it1) }
 
                 // Fetch cashback status every time unless it is refunded
-//                if (!args.chequeEntity.cashback) {
-//                    chequesViewModel.getChequeCashbackStatus(args.chequeEntity.shortDocumentId)
-//                }
+                if (!args.chequeEntity.cashback) {
+                    chequesViewModel.getChequeCashbackStatus(args.chequeEntity.shortDocumentId)
+                }
             }
         }
         chequesViewModel.viewedChequeCashbackStatus.observe(viewLifecycleOwner) {
@@ -180,10 +180,10 @@ class ChequeDetailsFragment : Fragment() {
 
         // Fetch check requests only if there is no local data
         if (args.chequeEntity.sum == null) {
-            chequesViewModel.getChequeDetails(args.chequeEntity.documentID)
+            chequesViewModel.getChequeDetails(args.chequeEntity.shortDocumentId)
         } else {
             //Load from local db if data is stored
-            chequesViewModel.getChequeDetailsFromDatabase(args.chequeEntity.documentID)
+            chequesViewModel.getChequeDetailsFromDatabase(args.chequeEntity.shortDocumentId)
         }
     }
 
