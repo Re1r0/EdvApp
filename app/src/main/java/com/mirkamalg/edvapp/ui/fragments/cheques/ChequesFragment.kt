@@ -62,7 +62,6 @@ class ChequesFragment : Fragment() {
 
     private fun configureObservers() {
         chequesViewModel.allCheques.observe(viewLifecycleOwner) {
-            binding.recyclerViewCheques.layoutAnimation = null
             adapter.submitList(it)
         }
     }
