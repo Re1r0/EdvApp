@@ -117,9 +117,21 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
      * Fetches cheque details of given ID from the server
      * @param chequeID ID of cheque whose details are being queried
      */
-    fun getChequeDetails(chequeID: String) {
+    fun getChequeDetails(chequeID: String = "", shortChequeID: String = "") {
         viewModelScope.launch(Dispatchers.IO) {
-            when (val response = chequesRepository.fetchChequeDetailsFromAPI(chequeID)) {
+
+            /**
+             * If cheque is added manually, it has an actual short id and a random UUID as document id
+             * therefore, if documentID doesn't start with short id, this means it is random, and short id
+             * must be used for request
+             */
+            val requestedID = if (chequeID.startsWith(shortChequeID)) {
+                chequeID
+            } else {
+                shortChequeID
+            }
+
+            when (val response = chequesRepository.fetchChequeDetailsFromAPI(requestedID)) {
                 is ResponseState.Success<*> -> {
                     withContext(Dispatchers.Main) {
                         _viewedChequeData.value = response.data as ChequeWrapperData
