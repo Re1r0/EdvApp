@@ -134,8 +134,22 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
 
             when (val response = chequesRepository.fetchChequeDetailsFromAPI(requestedID)) {
                 is ResponseState.Success<*> -> {
+                    val data = response.data as ChequeWrapperData
+
+                    /**
+                     * filter data so that only the object with 3 non null fields is remaining, if there
+                     * isn't any, keep it as is
+                     */
+                    val filteredVATAmountsData = data.cheque?.content?.vatAmounts?.filter {
+                        it?.vatPercent != null && it.vatResult != null && it.vatSum != null
+                    } as ArrayList?
+
+                    if (filteredVATAmountsData?.isNotEmpty() == true) {
+                        data.cheque?.content?.vatAmounts = filteredVATAmountsData
+                    }
+
                     withContext(Dispatchers.Main) {
-                        _viewedChequeData.value = response.data as ChequeWrapperData
+                        _viewedChequeData.value = data
                         _viewedChequeData.value = null
                     }
                 }

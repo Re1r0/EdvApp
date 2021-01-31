@@ -29,7 +29,7 @@ data class ChequeContentData(
     val docNumber: Long?,
     val creditSum: Double?,
     val docType: Int?,
-    val vatAmounts: List<VATAmountsData?>?,
+    var vatAmounts: List<VATAmountsData?>?,
     val sum: Double?,
     val cashSum: Double?,
     val cashboxTaxNumber: String?,
