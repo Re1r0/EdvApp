@@ -15,6 +15,7 @@ import com.mirkamalg.edvapp.R
 import com.mirkamalg.edvapp.databinding.FragmentManualChequeAddBinding
 import com.mirkamalg.edvapp.model.entities.ChequeEntity
 import com.mirkamalg.edvapp.viewmodels.ChequesViewModel
+import java.util.*
 
 /**
  * Created by Mirkamal on 30 January 2021
@@ -68,16 +69,21 @@ class ManualChequeAddFragment : Fragment() {
         binding.apply {
             buttonAdd.setOnClickListener {
                 if (textInputLayoutShortID.error == null) {
-                    chequesViewModel.addCheque(
-                        ChequeEntity(
-                            "",
-                            binding.textInputEditTextShortID.text.toString()
+                    if (textInputEditTextShortID.text?.isNotBlank() == true) {
+                        chequesViewModel.addCheque(
+                            ChequeEntity(
+                                UUID.randomUUID().toString(),
+                                binding.textInputEditTextShortID.text.toString()
+                            )
                         )
-                    )
-                    binding.lottieAnimationViewSuccess.apply {
-                        isVisible = true
-                        progress = 0f
-                        playAnimation()
+                        binding.lottieAnimationViewSuccess.apply {
+                            isVisible = true
+                            progress = 0f
+                            playAnimation()
+                        }
+                    } else {
+                        textInputLayoutShortID.error =
+                            getString(R.string.err_short_id_cannot_be_blank)
                     }
                 }
             }
@@ -91,9 +97,12 @@ class ManualChequeAddFragment : Fragment() {
         binding.lottieAnimationViewSuccess.addAnimatorUpdateListener {
             if ((it.animatedValue as Float) >= 0.95f) {
                 Handler(Looper.getMainLooper()).postDelayed({
-                    binding.lottieAnimationViewSuccess.apply {
-                        isVisible = false
-                        progress = 0f
+                    binding.apply {
+                        lottieAnimationViewSuccess.apply {
+                            isVisible = false
+                            progress = 0f
+                        }
+                        textInputEditTextShortID.text?.clear()
                     }
                 }, 300)
             }
