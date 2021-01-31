@@ -1,6 +1,7 @@
 package com.mirkamalg.edvapp.ui.fragments.cheque_details
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,12 +81,14 @@ class ChequeDetailsFragment : Fragment() {
         }
         chequesViewModel.viewedChequeData.observe(viewLifecycleOwner) {
             it?.let {
+                Log.e("HERE", "HERE2")
                 binding.progressBar.isVisible = false
 
                 chequesViewModel.generateQRCodeFromString(
                     "${PREFIX_EGOV_URL}${it.cheque?.shortDocumentId}"
                 )
                 loadDataToUI(it)
+                Log.e("HERE", "HERE2")
 
                 // update local db only if there isn't any data saved before
                 if (args.chequeEntity.sum == null) {
@@ -159,7 +162,7 @@ class ChequeDetailsFragment : Fragment() {
                 data.cheque?.content?.prepaymentSum.toString()
             )
             textViewShortID.text = data.cheque?.shortDocumentId.toString()
-            textViewCashBack.text = if (data.cashback) {
+            textViewCashBack.text = if (data.cashback == true) {
                 getString(R.string.msg_cashback_refunded)
             } else {
                 getString(R.string.msg_cashback_not_refunded)

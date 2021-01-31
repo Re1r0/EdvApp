@@ -73,7 +73,7 @@ fun ChequeEntity.toChequeWrapperData(): ChequeWrapperData {
                 this.cashlessSum,
                 items
             )
-        )
+        ), false
     )
 }
 

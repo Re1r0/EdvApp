@@ -136,6 +136,7 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
                 is ResponseState.Success<*> -> {
                     val data = response.data as ChequeWrapperData
 
+                    Log.e("HERE", "HERE3")
                     /**
                      * filter data so that only the object with 3 non null fields is remaining, if there
                      * isn't any, keep it as is
@@ -144,11 +145,13 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
                         it?.vatPercent != null && it.vatResult != null && it.vatSum != null
                     } as ArrayList?
 
+                    Log.e("HERE", "HERE4")
                     if (filteredVATAmountsData?.isNotEmpty() == true) {
                         data.cheque?.content?.vatAmounts = filteredVATAmountsData
                     }
 
                     withContext(Dispatchers.Main) {
+                        Log.e("HERE", "HERE5")
                         _viewedChequeData.value = data
                         _viewedChequeData.value = null
                     }

@@ -11,7 +11,7 @@ data class ChequeWrapperData(
     @Json(name = "cheque") val cheque: ChequeData?,
     // Set manually afterwards and used only for retrieving cashback status
     // in the observer of cheque details screen
-    var cashback: Boolean = false
+    @Json(name = "ignored") var cashback: Boolean?
 )
 
 data class ChequeData(
