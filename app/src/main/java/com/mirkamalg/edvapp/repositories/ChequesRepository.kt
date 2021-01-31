@@ -3,6 +3,7 @@ package com.mirkamalg.edvapp.repositories
 import com.mirkamalg.edvapp.local.database.ChequesDatabase
 import com.mirkamalg.edvapp.model.entities.ChequeEntity
 import com.mirkamalg.edvapp.network.ApiInitHelper
+import com.mirkamalg.edvapp.util.ERROR_UNABLE_TO_RESOLVE_HOST
 import com.mirkamalg.edvapp.util.ResponseState
 
 /**
@@ -43,7 +44,7 @@ class ChequesRepository(private val chequesDatabase: ChequesDatabase? = null) : 
         return try {
             getResponseStatus(chequesServices.getChequeDetails(chequeID))
         } catch (e: Exception) {
-            ResponseState.Error(e.message.toString())
+            ResponseState.Error(ERROR_UNABLE_TO_RESOLVE_HOST)
         }
     }
 
@@ -51,7 +52,7 @@ class ChequesRepository(private val chequesDatabase: ChequesDatabase? = null) : 
         return try {
             getResponseStatus(chequesServices.getChequeCashbackStatus(chequeShortID))
         } catch (e: java.lang.Exception) {
-            ResponseState.Error(e.message.toString())
+            ResponseState.Error(ERROR_UNABLE_TO_RESOLVE_HOST)
         }
     }
 }

@@ -18,6 +18,7 @@ import com.mirkamalg.edvapp.model.data.ChequeData
 import com.mirkamalg.edvapp.model.data.ChequeWrapperData
 import com.mirkamalg.edvapp.model.entities.ChequeEntity
 import com.mirkamalg.edvapp.repositories.ChequesRepository
+import com.mirkamalg.edvapp.util.ERROR_NOT_FOUND
 import com.mirkamalg.edvapp.util.ERROR_RESPONSE_BODY_NULL
 import com.mirkamalg.edvapp.util.ResponseState
 import com.mirkamalg.edvapp.util.toChequeWrapperData
@@ -147,6 +148,12 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
                 is ResponseState.NullBody -> {
                     withContext(Dispatchers.Main) {
                         _error.value = ERROR_RESPONSE_BODY_NULL
+                        _error.value = null
+                    }
+                }
+                is ResponseState.NotFound -> {
+                    withContext(Dispatchers.Main) {
+                        _error.value = ERROR_NOT_FOUND
                         _error.value = null
                     }
                 }

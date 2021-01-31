@@ -6,5 +6,6 @@ package com.mirkamalg.edvapp.util
 sealed class ResponseState {
     data class Success<T>(val data: T) : ResponseState()
     object NullBody : ResponseState()
+    object NotFound : ResponseState()
     data class Error(val error: String) : ResponseState()
 }

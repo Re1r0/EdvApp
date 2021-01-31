@@ -14,6 +14,7 @@ import androidx.navigation.navGraphViewModels
 import com.mirkamalg.edvapp.R
 import com.mirkamalg.edvapp.databinding.FragmentManualChequeAddBinding
 import com.mirkamalg.edvapp.model.entities.ChequeEntity
+import com.mirkamalg.edvapp.util.hideKeyboard
 import com.mirkamalg.edvapp.viewmodels.ChequesViewModel
 import java.util.*
 
@@ -70,6 +71,7 @@ class ManualChequeAddFragment : Fragment() {
             buttonAdd.setOnClickListener {
                 if (textInputLayoutShortID.error == null) {
                     if (textInputEditTextShortID.text?.isNotBlank() == true) {
+                        hideKeyboard()
                         chequesViewModel.addCheque(
                             ChequeEntity(
                                 binding.textInputEditTextShortID.text.toString(),
@@ -104,7 +106,7 @@ class ManualChequeAddFragment : Fragment() {
                         }
                         textInputEditTextShortID.text?.clear()
                     }
-                }, 300)
+                }, 400)
             }
         }
     }

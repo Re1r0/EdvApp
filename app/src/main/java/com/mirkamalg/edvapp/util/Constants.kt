@@ -19,6 +19,8 @@ const val BASE_URL_CHEQUE_DETAILS = "https://monitoring.e-kassa.gov.az/pks-porta
 
 //Errors
 const val ERROR_RESPONSE_BODY_NULL = "ERROR_RESPONSE_BODY_NULL"
+const val ERROR_NOT_FOUND = "ERROR_NOT_FOUND"
+const val ERROR_UNABLE_TO_RESOLVE_HOST = "ERROR_UNABLE_TO_RESOLVE_HOST"
 
 //Preference keys
 const val DONT_SHOW_ONBOARDING_SCREEN = "DONT_SHOW_ONBOARDING_SCREEN"

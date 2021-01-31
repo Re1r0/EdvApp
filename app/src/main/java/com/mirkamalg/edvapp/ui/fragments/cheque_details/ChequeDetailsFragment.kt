@@ -1,7 +1,6 @@
 package com.mirkamalg.edvapp.ui.fragments.cheque_details
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +15,7 @@ import com.mirkamalg.edvapp.databinding.FragmentChequeDetailsBinding
 import com.mirkamalg.edvapp.model.data.ChequeData
 import com.mirkamalg.edvapp.model.data.ChequeWrapperData
 import com.mirkamalg.edvapp.ui.fragments.cheque_details.recyclerview.ChequeItemsListAdapter
-import com.mirkamalg.edvapp.util.ERROR_RESPONSE_BODY_NULL
-import com.mirkamalg.edvapp.util.PREFIX_EGOV_URL
-import com.mirkamalg.edvapp.util.copyToClipboard
+import com.mirkamalg.edvapp.util.*
 import com.mirkamalg.edvapp.viewmodels.ChequesViewModel
 
 /**
@@ -173,9 +170,9 @@ class ChequeDetailsFragment : Fragment() {
 
         binding.apply {
             progressBar.isVisible = true
-            imageViewConnectionLost.isVisible = false
+            imageViewError.isVisible = false
             buttonRetry.isVisible = false
-            textViewConnectionLost.isVisible = false
+            textViewError.isVisible = false
         }
 
         // Fetch check requests only if there is no local data
@@ -189,21 +186,47 @@ class ChequeDetailsFragment : Fragment() {
 
     private fun handleError(error: String) {
         when (error) {
+            ERROR_NOT_FOUND -> {
+                if (!binding.nestedScrollViewChequeDetails.isVisible) {
+                    binding.apply {
+                        progressBar.isVisible = false
+
+                        imageViewError.setImageResource(R.drawable.not_found)
+                        imageViewError.isVisible = true
+                        textViewError.text = getString(R.string.err_cheque_data_not_found)
+                        textViewError.isVisible = true
+
+                        buttonRetry.isVisible = true
+                    }
+                }
+            }
             ERROR_RESPONSE_BODY_NULL -> {
                 Toast.makeText(
                     context,
-                    getString(R.string.err_cheque_data_not_found),
+                    getString(R.string.err_unknown_error_occurred),
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            else -> {
-                binding.apply {
-                    progressBar.isVisible = false
-                    imageViewConnectionLost.isVisible = true
-                    textViewConnectionLost.isVisible = true
-                    buttonRetry.isVisible = true
+            ERROR_UNABLE_TO_RESOLVE_HOST -> {
+                if (!binding.nestedScrollViewChequeDetails.isVisible) {
+                    binding.apply {
+                        progressBar.isVisible = false
+
+                        imageViewError.setImageResource(R.drawable.internet_lost)
+                        imageViewError.isVisible = true
+                        textViewError.text = getString(R.string.err_cannot_connect_to_server)
+                        textViewError.isVisible = true
+
+                        buttonRetry.isVisible = true
+                    }
                 }
-                Log.e("ChequeDetailsError", error)
+            }
+            else -> {
+                Toast.makeText(
+                    context,
+                    getString(R.string.err_unknown_error_occurred),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

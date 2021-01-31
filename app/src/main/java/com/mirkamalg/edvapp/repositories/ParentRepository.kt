@@ -16,6 +16,8 @@ open class ParentRepository {
                 } else {
                     ResponseState.NullBody
                 }
+            } else if (response.code() == 404) {
+                ResponseState.NotFound
             } else {
                 ResponseState.Error(response.message())
             }
