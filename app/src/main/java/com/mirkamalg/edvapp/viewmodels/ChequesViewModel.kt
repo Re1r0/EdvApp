@@ -211,6 +211,8 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
             val cheque = chequesRepository.fetchChequeDetailsFromDatabase(shortDocumentID)
             cheque?.let {
                 val converted = it.toChequeWrapperData()
+                //Set cashback info here
+                converted.cashback = it.cashback
                 withContext(Dispatchers.Main) {
                     _viewedChequeData.value = converted
                     _viewedChequeData.value = null

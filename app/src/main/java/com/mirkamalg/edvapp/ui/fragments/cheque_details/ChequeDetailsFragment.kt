@@ -86,7 +86,11 @@ class ChequeDetailsFragment : Fragment() {
                     "${PREFIX_EGOV_URL}${it.cheque?.shortDocumentId}"
                 )
                 loadDataToUI(it)
-                it.cheque?.let { it1 -> updateLocalChequeData(it1) }
+
+                // update local db only if there isn't any data saved before
+                if (args.chequeEntity.sum == null) {
+                    it.cheque?.let { it1 -> updateLocalChequeData(it1) }
+                }
 
                 // Fetch cashback status every time unless it is refunded
                 if (!args.chequeEntity.cashback) {
@@ -155,7 +159,11 @@ class ChequeDetailsFragment : Fragment() {
                 data.cheque?.content?.prepaymentSum.toString()
             )
             textViewShortID.text = data.cheque?.shortDocumentId.toString()
-            //TODO configure text for cashback with new api
+            textViewCashBack.text = if (data.cashback) {
+                getString(R.string.msg_cashback_refunded)
+            } else {
+                getString(R.string.msg_cashback_not_refunded)
+            }
 
             nestedScrollViewChequeDetails.isVisible = true
         }

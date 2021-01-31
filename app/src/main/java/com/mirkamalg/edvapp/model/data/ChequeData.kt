@@ -8,7 +8,10 @@ import com.squareup.moshi.Json
 
 data class ChequeWrapperData(
     @Json(name = "count") val count: Int?,
-    @Json(name = "cheque") val cheque: ChequeData?
+    @Json(name = "cheque") val cheque: ChequeData?,
+    // Set manually afterwards and used only for retrieving cashback status
+    // in the observer of cheque details screen
+    var cashback: Boolean = false
 )
 
 data class ChequeData(
