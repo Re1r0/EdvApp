@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
 
     <View
         android:id="@+id/topBarVat"
@@ -52,5 +54,65 @@
         app:layout_constraintBottom_toBottomOf="@id/topBarVat"
         app:layout_constraintEnd_toEndOf="@id/topBarVat"
         app:layout_constraintTop_toTopOf="@id/topBarVat" />
+
+    <FrameLayout
+        android:id="@+id/topBannerVat"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/colorGreen"
+        app:layout_constraintTop_toBottomOf="@id/topBarVat">
+
+        <TextView
+            android:id="@+id/textViewTotalVatBanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/sf_ui_display_medium"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:transitionName="totalVatAmount"
+            tools:text="1.68 ₼" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textViewGoodsAndVatsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/sf_ui_display_medium"
+        android:text="@string/msg_goods_and_vats"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBannerVat"
+        tools:visibility="visible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewVAT"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="24dp"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewGoodsAndVatsLabel"
+        tools:visibility="visible" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/colorGreen"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBarVat"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

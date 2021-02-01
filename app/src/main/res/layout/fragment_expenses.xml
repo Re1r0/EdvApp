@@ -31,6 +31,7 @@
         android:layout_marginStart="20dp"
         android:fontFamily="@font/sf_ui_display_medium"
         android:text="@string/title_expenses"
+        android:transitionName="totalExpenseText"
         android:textColor="?colorOnSecondary"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@id/topBarExpenses"

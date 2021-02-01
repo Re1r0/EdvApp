@@ -104,6 +104,9 @@
         <action
             android:id="@+id/action_VATFragment_to_VATInfoFragment"
             app:destination="@id/VATInfoFragment" />
+        <argument
+            android:name="vatTotal"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/VATInfoFragment"

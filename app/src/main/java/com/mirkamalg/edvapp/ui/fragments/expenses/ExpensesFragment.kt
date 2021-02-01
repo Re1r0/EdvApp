@@ -1,6 +1,7 @@
 package com.mirkamalg.edvapp.ui.fragments.expenses
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,10 @@ class ExpensesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementReturnTransition = null
+
         binding = FragmentExpensesBinding.inflate(inflater, container, false)
         return binding.root
     }

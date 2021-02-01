@@ -9,13 +9,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.mirkamalg.edvapp.local.database.ChequesDatabase
-import com.mirkamalg.edvapp.model.data.CashbackData
-import com.mirkamalg.edvapp.model.data.ChequeData
-import com.mirkamalg.edvapp.model.data.ChequeWrapperData
+import com.mirkamalg.edvapp.model.data.*
 import com.mirkamalg.edvapp.model.entities.ChequeEntity
 import com.mirkamalg.edvapp.repositories.ChequesRepository
 import com.mirkamalg.edvapp.util.ERROR_NOT_FOUND
@@ -56,6 +55,14 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
     private val _checkedChequeEntity = MutableLiveData<ChequeEntity>()
     val checkedChequeEntity: LiveData<ChequeEntity>
         get() = _checkedChequeEntity
+
+    private val _totalExpenseAndVat = MutableLiveData<Pair<Double, Double>>()
+    val totalExpenseAndVat: LiveData<Pair<Double, Double>>
+        get() = _totalExpenseAndVat
+
+    private val _vatList = MutableLiveData<List<VATListItemData>>()
+    val vatList: LiveData<List<VATListItemData>>
+        get() = _vatList
 
     fun getAllCheques() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -256,6 +263,45 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
                     _error.value = e.message
                     _error.value = null
                 }
+            }
+        }
+    }
+
+    fun calculateSumOfExpensesAndVAT(entities: List<ChequeEntity>) {
+        viewModelScope.launch(Dispatchers.Default) {
+            var sumExpenses = 0.0
+            var sumVat = 0.0
+            for (item in entities) {
+                if (item.sum != null) sumExpenses += item.sum
+                if (item.vatResult != null) sumVat += item.vatResult
+            }
+            withContext(Dispatchers.Main) {
+                _totalExpenseAndVat.value = Pair(sumExpenses, sumVat)
+                _totalExpenseAndVat.value = null
+            }
+        }
+    }
+
+    fun getVatListData(entities: List<ChequeEntity>) {
+        viewModelScope.launch(Dispatchers.Default) {
+            val vatListItems = arrayListOf<VATListItemData>()
+            for (entity in entities) {
+                val items: List<ChequeItemData> = jacksonObjectMapper().readValue(entity.items)
+                for (item in items) {
+                    if (vatListItems.none { item.itemName == it.name }) {
+                        vatListItems.add(
+                            VATListItemData(
+                                item.itemName.toString(), item.itemPrice ?: 0.0,
+                                item.itemPrice?.times(0.18)?.toString()?.substring(0, 4)?.toDouble()
+                                    ?: 0.0
+                            )
+                        )
+                    }
+                }
+            }
+            withContext(Dispatchers.Main) {
+                _vatList.value = vatListItems
+                _vatList.value = null
             }
         }
     }

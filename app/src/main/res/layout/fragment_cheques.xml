@@ -83,6 +83,7 @@
                 android:text="@string/msg_total_spending"
                 android:textColor="?colorOnSecondary"
                 android:textSize="18sp"
+                android:transitionName="totalExpenseText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -148,6 +149,7 @@
                 android:text="@string/msg_zero_manats"
                 android:textColor="@color/colorGreen"
                 android:textSize="22sp"
+                android:transitionName="totalVatAmount"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewTotalVATLabel" />
 
@@ -171,8 +173,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:layoutAnimation="@anim/recycler_item_animation"
         android:clipToPadding="false"
+        android:layoutAnimation="@anim/recycler_item_animation"
         android:paddingHorizontal="16dp"
         android:paddingBottom="36dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

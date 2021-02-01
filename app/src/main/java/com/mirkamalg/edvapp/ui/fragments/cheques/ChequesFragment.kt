@@ -63,6 +63,17 @@ class ChequesFragment : Fragment() {
     private fun configureObservers() {
         chequesViewModel.allCheques.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            chequesViewModel.calculateSumOfExpensesAndVAT(it)
+        }
+        chequesViewModel.totalExpenseAndVat.observe(viewLifecycleOwner) {
+            binding.apply {
+                it?.let {
+                    textViewTotalSpending.text =
+                        getString(R.string.msg_money_amount_template, it.first.toString())
+                    textViewTotalVAT.text =
+                        getString(R.string.msg_money_amount_template, it.second.toString())
+                }
+            }
         }
     }
 
@@ -98,13 +109,21 @@ class ChequesFragment : Fragment() {
                 findNavController().navigate(ChequesFragmentDirections.actionChequesFragmentToVATCalculatorFragment())
             }
             cardViewExpenses.setOnClickListener {
-                findNavController().navigate(ChequesFragmentDirections.actionChequesFragmentToExpensesFragment())
+                val extras =
+                    FragmentNavigatorExtras(binding.textViewTotalSpendingLabel to "totalExpenseText")
+                findNavController().navigate(
+                    ChequesFragmentDirections.actionChequesFragmentToExpensesFragment(),
+                    extras
+                )
             }
             cardViewVAT.setOnClickListener {
                 val extras =
-                    FragmentNavigatorExtras(binding.textViewTotalVATLabel to "totalVATText")
+                    FragmentNavigatorExtras(
+                        binding.textViewTotalVATLabel to "totalVATText",
+                        binding.textViewTotalVAT to "totalVatAmount"
+                    )
                 findNavController().navigate(
-                    ChequesFragmentDirections.actionChequesFragmentToVATFragment(),
+                    ChequesFragmentDirections.actionChequesFragmentToVATFragment(binding.textViewTotalVAT.text.toString()),
                     extras
                 )
             }
