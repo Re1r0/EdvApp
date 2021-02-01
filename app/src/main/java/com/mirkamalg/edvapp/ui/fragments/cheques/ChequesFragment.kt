@@ -110,9 +110,12 @@ class ChequesFragment : Fragment() {
             }
             cardViewExpenses.setOnClickListener {
                 val extras =
-                    FragmentNavigatorExtras(binding.textViewTotalSpendingLabel to "totalExpenseText")
+                    FragmentNavigatorExtras(
+                        binding.textViewTotalSpendingLabel to "totalExpenseText",
+                        binding.textViewTotalSpending to "totalExpenseAmount"
+                    )
                 findNavController().navigate(
-                    ChequesFragmentDirections.actionChequesFragmentToExpensesFragment(),
+                    ChequesFragmentDirections.actionChequesFragmentToExpensesFragment(binding.textViewTotalSpending.text.toString()),
                     extras
                 )
             }

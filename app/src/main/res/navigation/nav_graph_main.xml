@@ -95,7 +95,11 @@
         android:id="@+id/expensesFragment"
         android:name="com.mirkamalg.edvapp.ui.fragments.expenses.ExpensesFragment"
         android:label="ExpensesFragment"
-        tools:layout="@layout/fragment_expenses" />
+        tools:layout="@layout/fragment_expenses">
+        <argument
+            android:name="spendingTotal"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/VATFragment"
         android:name="com.mirkamalg.edvapp.ui.fragments.vat.VATFragment"
