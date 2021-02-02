@@ -126,4 +126,7 @@ dependencies {
 
     //QR code generation library
     implementation 'com.google.zxing:core:3.4.0'
+
+    //Chart library
+    implementation 'com.github.PhilJay:MPAndroidChart:3.1.0'
 }

@@ -21,4 +21,13 @@
     <color name="colorLightGray">#33E4E4E4</color>
     <color name="colorLightGray2">#80E4E4E4</color>
 
+    <!--    Pie Chart Colors-->
+    <color name="colorMonday">#B2DF8A</color>
+    <color name="colorTuesday">#33A02C</color>
+    <color name="colorWednesday">#FB9A99</color>
+    <color name="colorThursday">#E31A1C</color>
+    <color name="colorFriday">#FDBF6F</color>
+    <color name="colorSaturday">#1F78B4</color>
+    <color name="colorSunday">#A6CEE3</color>
+
 </resources>

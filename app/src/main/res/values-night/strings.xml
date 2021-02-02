@@ -71,4 +71,14 @@
     <string name="err_short_id_cannot_be_blank">Fiskal İD boş ola bilməz.</string>
     <string name="err_unknown_error_occurred">Serverlə əlaqə zamanı gözlənilməyən xəta baş verdi</string>
     <string name="msg_goods_and_vats">Məhsullar və ƏDV-lər</string>
+    <string name="msg_statistics_of_last_week">Son həftənin statistikası</string>
+    <string name="msg_your_favorite_market">Sevimli marketiniz</string>
+    <string name="msg_favorite_goods">Sevimli məhsullarınız</string>
+    <string name="msg_monday">Bazar ertəsi</string>
+    <string name="msg_tuesday">Çərşəmbə axşamı</string>
+    <string name="msg_wednesday">Çərşəmbə</string>
+    <string name="msg_thursday">Cümə axşamı</string>
+    <string name="msg_friday">Cümə</string>
+    <string name="msg_saturday">Şənbə</string>
+    <string name="msg_sunday">Bazar</string>
 </resources>
