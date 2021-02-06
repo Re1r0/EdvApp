@@ -118,8 +118,8 @@
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:progressBackgroundTint="?colorSecondary"
         android:indeterminateTint="?colorSecondary"
+        android:progressBackgroundTint="?colorSecondary"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -136,15 +136,18 @@
         tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="80dp">
 
             <FrameLayout
                 android:id="@+id/topBannerChequeDetails"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="75dp"
                 android:background="@drawable/gradient_cheque_details"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView

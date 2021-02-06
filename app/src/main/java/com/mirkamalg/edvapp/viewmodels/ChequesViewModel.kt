@@ -2,8 +2,10 @@ package com.mirkamalg.edvapp.viewmodels
 
 import android.app.Application
 import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,13 +19,11 @@ import com.mirkamalg.edvapp.local.database.ChequesDatabase
 import com.mirkamalg.edvapp.model.data.*
 import com.mirkamalg.edvapp.model.entities.ChequeEntity
 import com.mirkamalg.edvapp.repositories.ChequesRepository
-import com.mirkamalg.edvapp.util.ERROR_NOT_FOUND
-import com.mirkamalg.edvapp.util.ERROR_RESPONSE_BODY_NULL
-import com.mirkamalg.edvapp.util.ResponseState
-import com.mirkamalg.edvapp.util.toChequeWrapperData
+import com.mirkamalg.edvapp.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 
 /**
  * Created by Mirkamal on 25 January 2021
@@ -63,6 +63,14 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
     private val _vatList = MutableLiveData<List<VATListItemData>>()
     val vatList: LiveData<List<VATListItemData>>
         get() = _vatList
+
+    private val _weeklyExpenseData = MutableLiveData<WeeklyExpenseData>()
+    val weeklyExpenseData: LiveData<WeeklyExpenseData>
+        get() = _weeklyExpenseData
+
+    private val _bitmapOfView = MutableLiveData<Bitmap>()
+    val bitmapOfView: LiveData<Bitmap>
+        get() = _bitmapOfView
 
     fun getAllCheques() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -302,6 +310,94 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
             withContext(Dispatchers.Main) {
                 _vatList.value = vatListItems
                 _vatList.value = null
+            }
+        }
+    }
+
+    fun drawBitmapFromView(view: View) {
+        viewModelScope.launch(Dispatchers.Default) {
+            view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+
+            val bitmap = Bitmap.createBitmap(
+                view.measuredWidth,
+                view.measuredHeight,
+                Bitmap.Config.ARGB_8888
+            )
+
+            val canvas = Canvas(bitmap)
+
+            view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+            view.draw(canvas)
+            withContext(Dispatchers.Main) {
+                _bitmapOfView.value = bitmap
+                _bitmapOfView.value = null
+            }
+        }
+    }
+
+    fun getWeeklyExpenseData() {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val calendar = Calendar.getInstance()
+            calendar[Calendar.HOUR_OF_DAY] = 0
+            calendar.apply {
+                clear(Calendar.MINUTE)
+                clear(Calendar.SECOND)
+                clear(Calendar.MILLISECOND)
+                set(Calendar.DAY_OF_WEEK, this.firstDayOfWeek)
+            }
+            val beginningOfTheWeek =
+                (calendar.timeInMillis + DAY) / 1000  //First day of the week is sunday so we add a day
+            val cheques = chequesRepository.getChequesWithDatesGreaterThan(beginningOfTheWeek)
+            val expenses = arrayListOf(
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ) // expenses[0] = Monday, expenses[1] = Tuesday and so on
+
+            cheques?.forEach {
+                if (it.createdAtUtc != null && it.createdAtUtc > beginningOfTheWeek) {
+                    val index = (it.createdAtUtc.minus(beginningOfTheWeek)).div(DAY).toInt()
+                    expenses[index] = expenses[index] + it.sum!!
+                }
+            }
+            val mostFrequentMarket = chequesRepository.getMostFrequentMarket()
+
+            val mostFrequentGoods = arrayListOf<String>()
+            val allChequeItemStrings = chequesRepository.getItemsOfAllCheques()
+            val allItemNames = arrayListOf<String>()
+            allChequeItemStrings?.forEach { chequeItemString ->
+                jacksonObjectMapper().readValue<List<ChequeItemData>>(chequeItemString).forEach {
+                    allItemNames.add(it.itemName.toString())
+                }
+            }
+            var found = 0
+            while (found < 5) {
+                val itemAndFrequency = allItemNames.groupingBy {
+                    it
+                }.eachCount()
+                val value = itemAndFrequency.maxByOrNull { it.value }?.key
+                value?.let { mostFrequentGoods.add(it) }
+
+                allItemNames.removeAll {
+                    it == value
+                }
+
+                found++
+            }
+
+            val weeklyExpenseData =
+                WeeklyExpenseData(mostFrequentMarket, mostFrequentGoods, expenses)
+
+            Log.d("WeeklyExpenseData", weeklyExpenseData.toString())
+
+            withContext(Dispatchers.Main) {
+                _weeklyExpenseData.value = weeklyExpenseData
+                _weeklyExpenseData.value = null
             }
         }
     }

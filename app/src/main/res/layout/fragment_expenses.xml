@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:animateLayoutChanges="true">
 
     <View
         android:id="@+id/topBarExpenses"
@@ -45,45 +45,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminateTint="@color/colorRed"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBarExpenses"
-        tools:visibility="visible" />
+        tools:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/topBannerExpenses"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/colorRed"
+        app:layout_constraintTop_toBottomOf="@id/topBarExpenses">
+
+        <TextView
+            android:id="@+id/textViewTotalExpenseBanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/sf_ui_display_medium"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:transitionName="totalExpenseAmount"
+            tools:text="1.68 ₼" />
+
+    </FrameLayout>
 
     <ScrollView
+        android:id="@+id/scrollViewExpenses"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBarExpenses"
+        app:layout_constraintTop_toBottomOf="@id/topBannerExpenses"
         tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <FrameLayout
-                android:id="@+id/topBannerExpenses"
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:background="@color/colorRed"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/textViewTotalExpenseBanner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/sf_ui_display_medium"
-                    android:textColor="@color/white"
-                    android:textSize="28sp"
-                    android:transitionName="totalExpenseAmount"
-                    tools:text="1.68 ₼" />
-
-            </FrameLayout>
 
             <TextView
                 android:id="@+id/textViewStatisticsLabel"
@@ -95,7 +95,7 @@
                 android:text="@string/msg_statistics_of_last_week"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/topBannerExpenses"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_goneMarginTop="16dp" />
 
             <com.github.mikephil.charting.charts.PieChart
@@ -149,13 +149,13 @@
                 android:id="@+id/recyclerViewFavoriteGoods"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:layout_marginBottom="8dp"
                 android:clipToPadding="false"
                 android:padding="8dp"
                 android:paddingBottom="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0"
                 app:layout_constraintTop_toBottomOf="@id/textViewFavoriteGoodsLabel" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

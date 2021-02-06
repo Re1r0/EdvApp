@@ -81,4 +81,5 @@
     <string name="msg_friday">Cümə</string>
     <string name="msg_saturday">Şənbə</string>
     <string name="msg_sunday">Bazar</string>
+    <string name="msg_choose">Seçin</string>
 </resources>

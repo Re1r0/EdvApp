@@ -28,4 +28,13 @@ interface ChequeDatabaseDAO {
 
     @Query("SELECT * from cheques_table")
     fun getAllCheques(): List<ChequeEntity>
+
+    @Query("SELECT * from cheques_table WHERE created_at_utc > :date")
+    fun getChequesWithDateGreaterThan(date: Long): List<ChequeEntity>
+
+    @Query("SELECT store_name from cheques_table GROUP BY store_name ORDER BY COUNT(store_name) DESC LIMIT 1;")
+    fun getMostFrequentMarket(): String?
+
+    @Query("SELECT items from cheques_table")
+    fun getItemsOfAllCheques(): List<String>
 }

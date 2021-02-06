@@ -40,6 +40,18 @@ class ChequesRepository(private val chequesDatabase: ChequesDatabase? = null) : 
         chequeDatabaseDAO?.updateCheque(chequeEntity)
     }
 
+    fun getChequesWithDatesGreaterThan(date: Long): List<ChequeEntity>? {
+        return chequeDatabaseDAO?.getChequesWithDateGreaterThan(date)
+    }
+
+    fun getMostFrequentMarket(): String? {
+        return chequeDatabaseDAO?.getMostFrequentMarket()
+    }
+
+    fun getItemsOfAllCheques(): List<String>? {
+        return chequeDatabaseDAO?.getItemsOfAllCheques()
+    }
+
     suspend fun fetchChequeDetailsFromAPI(chequeID: String): ResponseState {
         return try {
             getResponseStatus(chequesServices.getChequeDetails(chequeID))

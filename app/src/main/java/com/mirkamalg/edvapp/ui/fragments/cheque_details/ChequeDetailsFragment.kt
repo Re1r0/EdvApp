@@ -1,11 +1,14 @@
 package com.mirkamalg.edvapp.ui.fragments.cheque_details
 
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -18,6 +21,9 @@ import com.mirkamalg.edvapp.model.data.ChequeWrapperData
 import com.mirkamalg.edvapp.ui.fragments.cheque_details.recyclerview.ChequeItemsListAdapter
 import com.mirkamalg.edvapp.util.*
 import com.mirkamalg.edvapp.viewmodels.ChequesViewModel
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 
 /**
  * Created by Mirkamal on 26 January 2021
@@ -57,7 +63,7 @@ class ChequeDetailsFragment : Fragment() {
                 findNavController().popBackStack()
             }
             imageButtonShare.setOnClickListener {
-
+                chequesViewModel.drawBitmapFromView(binding.mainConstraintLayout)
             }
             buttonRetry.setOnClickListener {
                 fetchChequeDetails()
@@ -81,14 +87,12 @@ class ChequeDetailsFragment : Fragment() {
         }
         chequesViewModel.viewedChequeData.observe(viewLifecycleOwner) {
             it?.let {
-                Log.e("HERE", "HERE2")
                 binding.progressBar.isVisible = false
 
                 chequesViewModel.generateQRCodeFromString(
                     "${PREFIX_EGOV_URL}${it.cheque?.shortDocumentId}"
                 )
                 loadDataToUI(it)
-                Log.e("HERE", "HERE2")
 
                 // update local db only if there isn't any data saved before
                 if (args.chequeEntity.sum == null) {
@@ -113,6 +117,11 @@ class ChequeDetailsFragment : Fragment() {
         chequesViewModel.generatedQRBitmap.observe(viewLifecycleOwner) {
             it?.let {
                 binding.imageViewQRCode.setImageBitmap(it)
+            }
+        }
+        chequesViewModel.bitmapOfView.observe(viewLifecycleOwner) {
+            it?.let {
+                shareImage(it)
             }
         }
     }
@@ -239,6 +248,32 @@ class ChequeDetailsFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+    }
+
+    private fun shareImage(bitmap: Bitmap) {
+        context?.let {
+            val share = Intent(Intent.ACTION_SEND)
+            share.type = "image/jpeg"
+            val bytes = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+
+            val file = File(it.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "cheque.jpeg")
+
+            FileOutputStream(file).apply {
+                write(bytes.toByteArray())
+                flush()
+                close()
+            }
+
+            val imageUri = FileProvider.getUriForFile(
+                it,
+                "com.mirkamalg.edvapp.ui.fragments.cheque_details.ChequeDetailsFragment",
+                file
+            )
+
+            share.putExtra(Intent.EXTRA_STREAM, imageUri)
+            startActivity(Intent.createChooser(share, getString(R.string.msg_choose)))
         }
     }
 }
