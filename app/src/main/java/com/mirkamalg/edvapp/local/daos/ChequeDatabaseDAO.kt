@@ -13,6 +13,9 @@ interface ChequeDatabaseDAO {
     @Insert
     fun insertNewCheque(chequeEntity: ChequeEntity)
 
+    @Delete
+    fun deleteCheque(chequeEntity: ChequeEntity)
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateCheque(chequeEntity: ChequeEntity)
 

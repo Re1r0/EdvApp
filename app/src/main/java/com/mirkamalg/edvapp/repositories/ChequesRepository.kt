@@ -36,6 +36,10 @@ class ChequesRepository(private val chequesDatabase: ChequesDatabase? = null) : 
         chequeDatabaseDAO?.insertNewCheque(chequeEntity)
     }
 
+    fun deleteChequeFromDatabase(chequeEntity: ChequeEntity) {
+        chequeDatabaseDAO?.deleteCheque(chequeEntity)
+    }
+
     fun updateExistingCheque(chequeEntity: ChequeEntity) {
         chequeDatabaseDAO?.updateCheque(chequeEntity)
     }

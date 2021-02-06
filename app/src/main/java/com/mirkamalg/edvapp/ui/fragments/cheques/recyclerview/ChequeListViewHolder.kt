@@ -1,5 +1,6 @@
 package com.mirkamalg.edvapp.ui.fragments.cheques.recyclerview
 
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.mirkamalg.edvapp.R
 import com.mirkamalg.edvapp.databinding.ItemChequesListBinding
@@ -10,7 +11,8 @@ import com.mirkamalg.edvapp.model.entities.ChequeEntity
  */
 class ChequeListViewHolder private constructor(
     private val binding: ItemChequesListBinding,
-    private val itemClickListener: (ChequeEntity) -> Unit
+    private val itemClickListener: (ChequeEntity) -> Unit,
+    private val deleteListener: (ChequeEntity, Int) -> Unit
 ) :
     RecyclerView.ViewHolder(binding.root) {
 
@@ -18,6 +20,11 @@ class ChequeListViewHolder private constructor(
 
         itemView.setOnClickListener {
             itemClickListener(data)
+        }
+
+        binding.imageButtonDeleteCheque.setOnClickListener {
+            deleteListener(data, adapterPosition)
+            Log.e("HERE", adapterPosition.toString())
         }
 
         val context = itemView.context
@@ -38,9 +45,10 @@ class ChequeListViewHolder private constructor(
     companion object {
         fun from(
             binding: ItemChequesListBinding,
-            itemClickListener: (ChequeEntity) -> Unit
+            itemClickListener: (ChequeEntity) -> Unit,
+            deleteListener: (ChequeEntity, Int) -> Unit
         ): ChequeListViewHolder {
-            return ChequeListViewHolder(binding, itemClickListener)
+            return ChequeListViewHolder(binding, itemClickListener, deleteListener)
         }
     }
 }

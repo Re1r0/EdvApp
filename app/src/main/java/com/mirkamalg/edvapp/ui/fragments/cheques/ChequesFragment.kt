@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.mirkamalg.edvapp.R
 import com.mirkamalg.edvapp.databinding.FragmentChequesBinding
+import com.mirkamalg.edvapp.model.entities.ChequeEntity
 import com.mirkamalg.edvapp.ui.fragments.cheques.recyclerview.ChequesListAdapter
 import com.mirkamalg.edvapp.util.REQUEST_CODE_CAMERA_PERMISSION
 import com.mirkamalg.edvapp.viewmodels.ChequesViewModel
@@ -48,18 +49,22 @@ class ChequesFragment : Fragment() {
     }
 
     private fun configureRecyclerView() {
-        adapter = ChequesListAdapter {
+        adapter = ChequesListAdapter({
             findNavController().navigate(
                 ChequesFragmentDirections.actionChequesFragmentToChequeDetailsFragment(
                     it
                 )
             )
-        }
+        }, { entity, position ->
+            chequesViewModel.deleteCheque(entity)
+            chequesViewModel.removeItemAtPosition(adapter.currentList, position)
+        })
         binding.recyclerViewCheques.adapter = adapter
 
         chequesViewModel.getAllCheques()
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun configureObservers() {
         chequesViewModel.allCheques.observe(viewLifecycleOwner) {
             adapter.submitList(it)
@@ -73,6 +78,12 @@ class ChequesFragment : Fragment() {
                     textViewTotalVAT.text =
                         getString(R.string.msg_money_amount_template, it.second.toString())
                 }
+            }
+        }
+        chequesViewModel.listData.observe(viewLifecycleOwner) {
+            it?.let {
+                adapter.submitList(it as ArrayList<ChequeEntity>)
+                chequesViewModel.calculateSumOfExpensesAndVAT(it)
             }
         }
     }

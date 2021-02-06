@@ -59,6 +59,7 @@
             tools:text="19.01.2021  15:35" />
 
         <ImageButton
+            android:id="@+id/imageButtonArrowChequeItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -68,6 +69,18 @@
             app:layout_constraintBottom_toBottomOf="@id/textViewChequeDateTime"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/textViewChequeDateTime" />
+
+        <ImageButton
+            android:id="@+id/imageButtonDeleteCheque"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:padding="4dp"
+            android:src="@drawable/ic_delete"
+            android:tooltipText="@string/action_delete"
+            app:layout_constraintBottom_toBottomOf="@id/textViewChequeVAT"
+            app:layout_constraintEnd_toEndOf="@id/imageButtonArrowChequeItem"
+            app:layout_constraintTop_toTopOf="@id/textViewChequeVAT" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
