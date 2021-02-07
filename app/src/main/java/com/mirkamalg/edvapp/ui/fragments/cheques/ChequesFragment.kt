@@ -15,10 +15,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.mirkamalg.edvapp.R
 import com.mirkamalg.edvapp.databinding.FragmentChequesBinding
-import com.mirkamalg.edvapp.model.entities.ChequeEntity
 import com.mirkamalg.edvapp.ui.fragments.cheques.recyclerview.ChequesListAdapter
-import com.mirkamalg.edvapp.util.DOT_CHAR
 import com.mirkamalg.edvapp.util.REQUEST_CODE_CAMERA_PERMISSION
+import com.mirkamalg.edvapp.util.round
 import com.mirkamalg.edvapp.viewmodels.ChequesViewModel
 
 /**
@@ -50,15 +49,18 @@ class ChequesFragment : Fragment() {
     }
 
     private fun configureRecyclerView() {
-        adapter = ChequesListAdapter({
+        adapter = ChequesListAdapter(itemClickListener = {
             findNavController().navigate(
                 ChequesFragmentDirections.actionChequesFragmentToChequeDetailsFragment(
                     it
                 )
             )
-        }, { entity, position ->
-            chequesViewModel.deleteCheque(entity)
-            chequesViewModel.removeItemAtPosition(adapter.currentList, position)
+        }, deleteListener = { entity, _ -> //position is unused
+            findNavController().navigate(
+                ChequesFragmentDirections.actionChequesFragmentToDeleteChequeConfirmationFragment(
+                    entity
+                )
+            )
         })
         binding.recyclerViewCheques.adapter = adapter
 
@@ -74,33 +76,21 @@ class ChequesFragment : Fragment() {
         chequesViewModel.totalExpenseAndVat.observe(viewLifecycleOwner) {
             binding.apply {
                 it?.let {
-                    val first = it.first.toString()
-                    val second = it.second.toString()
-
-                    val spendingText = if ((first.length - first.indexOf(DOT_CHAR)) > 3) {
-                        first.substring(0, first.indexOf(DOT_CHAR) + 2)
-                    } else {
-                        first
-                    }
-                    val vatText = if ((second.length - second.indexOf(DOT_CHAR)) > 3) {
-                        second.substring(0, first.indexOf(DOT_CHAR) + 2)
-                    } else {
-                        second
-                    }
-
                     textViewTotalSpending.text =
-                        getString(R.string.msg_money_amount_template, spendingText)
+                        getString(R.string.msg_money_amount_template, it.first.round(2).toString())
                     textViewTotalVAT.text =
-                        getString(R.string.msg_money_amount_template, vatText)
+                        getString(R.string.msg_money_amount_template, it.second.round(2).toString())
                 }
             }
         }
-        chequesViewModel.listData.observe(viewLifecycleOwner) {
-            it?.let {
-                adapter.submitList(it as ArrayList<ChequeEntity>)
-                chequesViewModel.calculateSumOfExpensesAndVAT(it)
+
+        //Observer for retrieving data from delete confirmation dialog
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("deleteChequeKey")
+            ?.observe(viewLifecycleOwner) {
+                it?.let {
+                    chequesViewModel.getAllCheques()
+                }
             }
-        }
     }
 
     override fun onRequestPermissionsResult(

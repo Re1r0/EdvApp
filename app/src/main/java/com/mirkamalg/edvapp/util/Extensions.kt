@@ -24,6 +24,7 @@ import com.mirkamalg.edvapp.model.data.*
 import com.mirkamalg.edvapp.model.entities.ChequeEntity
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.round
 
 
 /**
@@ -158,4 +159,10 @@ fun Context?.openURL(URL: String) {
 fun Fragment.hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.hideSoftInputFromWindow(view?.windowToken, 0)
+}
+
+fun Double.round(decimals: Int): Double {
+    var multiplier = 1.0
+    repeat(decimals) { multiplier *= 10 }
+    return round(this * multiplier) / multiplier
 }

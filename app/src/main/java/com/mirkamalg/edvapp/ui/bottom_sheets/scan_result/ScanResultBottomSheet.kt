@@ -1,4 +1,4 @@
-package com.mirkamalg.edvapp.ui.fragments.bottom_sheets.scan_result
+package com.mirkamalg.edvapp.ui.bottom_sheets.scan_result
 
 import android.os.Bundle
 import android.view.LayoutInflater

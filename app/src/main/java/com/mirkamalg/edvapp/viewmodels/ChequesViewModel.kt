@@ -76,10 +76,6 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
     val bitmapOfView: LiveData<Bitmap>
         get() = _bitmapOfView
 
-    private val _listData = MutableLiveData<ArrayList<*>>()
-    val listData: LiveData<ArrayList<*>>
-        get() = _listData
-
     fun getAllCheques() {
         viewModelScope.launch(Dispatchers.IO) {
             val cheques = chequesRepository.getAllCheques()?.asReversed()
@@ -98,18 +94,6 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
     fun deleteCheque(chequeEntity: ChequeEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             chequesRepository.deleteChequeFromDatabase(chequeEntity)
-        }
-    }
-
-    fun <T> removeItemAtPosition(list: MutableList<T>, position: Int) {
-        viewModelScope.launch(Dispatchers.Default) {
-            val newList = arrayListOf<T>()
-            newList.addAll(list)
-            newList.removeAt(position)
-            withContext(Dispatchers.Main) {
-                _listData.value = newList
-                _listData.value = null
-            }
         }
     }
 
