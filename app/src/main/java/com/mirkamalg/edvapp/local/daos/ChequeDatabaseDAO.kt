@@ -10,7 +10,7 @@ import com.mirkamalg.edvapp.model.entities.ChequeEntity
 @Dao
 interface ChequeDatabaseDAO {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insertNewCheque(chequeEntity: ChequeEntity)
 
     @Delete

@@ -105,6 +105,7 @@ class ManualChequeAddFragment : Fragment() {
                             progress = 0f
                         }
                         textInputEditTextShortID.text?.clear()
+                        textInputLayoutShortID.error = null
                     }
                 }, 400)
             }
