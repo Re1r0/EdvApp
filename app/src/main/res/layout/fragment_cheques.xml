@@ -92,11 +92,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:transitionName="totalExpenseAmount"
                 android:fontFamily="@font/sf_ui_display_medium"
                 android:text="@string/msg_zero_manats"
                 android:textColor="@color/colorRed"
                 android:textSize="22sp"
+                android:transitionName="totalExpenseAmount"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewTotalSpendingLabel" />
 
