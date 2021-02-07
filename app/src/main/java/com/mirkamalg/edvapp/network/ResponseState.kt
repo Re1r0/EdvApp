@@ -1,4 +1,4 @@
-package com.mirkamalg.edvapp.util
+package com.mirkamalg.edvapp.network
 
 /**
  * Created by Mirkamal on 26 January 2021

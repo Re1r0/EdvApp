@@ -3,8 +3,8 @@ package com.mirkamalg.edvapp.repositories
 import com.mirkamalg.edvapp.local.database.ChequesDatabase
 import com.mirkamalg.edvapp.model.entities.ChequeEntity
 import com.mirkamalg.edvapp.network.ApiInitHelper
+import com.mirkamalg.edvapp.network.ResponseState
 import com.mirkamalg.edvapp.util.ERROR_UNABLE_TO_RESOLVE_HOST
-import com.mirkamalg.edvapp.util.ResponseState
 
 /**
  * Created by Mirkamal on 25 January 2021

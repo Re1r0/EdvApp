@@ -18,8 +18,12 @@ import com.google.zxing.WriterException
 import com.mirkamalg.edvapp.local.database.ChequesDatabase
 import com.mirkamalg.edvapp.model.data.*
 import com.mirkamalg.edvapp.model.entities.ChequeEntity
+import com.mirkamalg.edvapp.network.ResponseState
 import com.mirkamalg.edvapp.repositories.ChequesRepository
-import com.mirkamalg.edvapp.util.*
+import com.mirkamalg.edvapp.util.DAY
+import com.mirkamalg.edvapp.util.ERROR_NOT_FOUND
+import com.mirkamalg.edvapp.util.ERROR_RESPONSE_BODY_NULL
+import com.mirkamalg.edvapp.util.toChequeWrapperData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

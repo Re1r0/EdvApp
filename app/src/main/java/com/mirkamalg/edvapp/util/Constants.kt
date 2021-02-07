@@ -12,6 +12,7 @@ const val CHEQUES_DATABASE_NAME = "CHEQUES_DATABASE"
 
 // Misc
 const val MANAT_CHAR = '₼'
+const val DOT_CHAR = '.'
 const val PREFIX_EGOV_URL = "https://monitoring.e-kassa.gov.az/#/index?doc="
 const val DAY = 86400000L
 

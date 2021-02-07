@@ -17,6 +17,7 @@ import com.mirkamalg.edvapp.R
 import com.mirkamalg.edvapp.databinding.FragmentChequesBinding
 import com.mirkamalg.edvapp.model.entities.ChequeEntity
 import com.mirkamalg.edvapp.ui.fragments.cheques.recyclerview.ChequesListAdapter
+import com.mirkamalg.edvapp.util.DOT_CHAR
 import com.mirkamalg.edvapp.util.REQUEST_CODE_CAMERA_PERMISSION
 import com.mirkamalg.edvapp.viewmodels.ChequesViewModel
 
@@ -73,10 +74,24 @@ class ChequesFragment : Fragment() {
         chequesViewModel.totalExpenseAndVat.observe(viewLifecycleOwner) {
             binding.apply {
                 it?.let {
+                    val first = it.first.toString()
+                    val second = it.second.toString()
+
+                    val spendingText = if ((first.length - first.indexOf(DOT_CHAR)) > 3) {
+                        first.substring(0, first.indexOf(DOT_CHAR) + 2)
+                    } else {
+                        first
+                    }
+                    val vatText = if ((second.length - second.indexOf(DOT_CHAR)) > 3) {
+                        second.substring(0, first.indexOf(DOT_CHAR) + 2)
+                    } else {
+                        second
+                    }
+
                     textViewTotalSpending.text =
-                        getString(R.string.msg_money_amount_template, it.first.toString())
+                        getString(R.string.msg_money_amount_template, spendingText)
                     textViewTotalVAT.text =
-                        getString(R.string.msg_money_amount_template, it.second.toString())
+                        getString(R.string.msg_money_amount_template, vatText)
                 }
             }
         }

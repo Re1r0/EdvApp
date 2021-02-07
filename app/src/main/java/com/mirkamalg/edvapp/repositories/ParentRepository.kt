@@ -1,6 +1,6 @@
 package com.mirkamalg.edvapp.repositories
 
-import com.mirkamalg.edvapp.util.ResponseState
+import com.mirkamalg.edvapp.network.ResponseState
 import retrofit2.Response
 
 /**
