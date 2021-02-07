@@ -30,13 +30,8 @@ import java.util.*
  * Created by Mirkamal on 25 January 2021
  */
 
-fun String.toDate(
-    dateFormat: String = "dd.MM.yyy HH:mm",
-    timeZone: TimeZone = TimeZone.getTimeZone("UTC")
-): Date? {
-    val parser = SimpleDateFormat(dateFormat, Locale.getDefault())
-    parser.timeZone = timeZone
-    return parser.parse(this)
+fun Date.formatToString(format: String = DATE_FORMAT): String {
+    return SimpleDateFormat(format, Locale.ROOT).format(this)
 }
 
 fun ChequeEntity.toChequeWrapperData(): ChequeWrapperData {

@@ -24,6 +24,7 @@ import com.mirkamalg.edvapp.viewmodels.ChequesViewModel
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.util.*
 
 /**
  * Created by Mirkamal on 26 January 2021
@@ -142,7 +143,8 @@ class ChequeDetailsFragment : Fragment() {
             textViewStoreTaxNumber.text = data.cheque?.storeTaxNumber.toString()
             textViewSaleChequeNumber.text = data.cheque?.content?.docNumber.toString()
             textViewCashier.text = data.cheque?.content?.cashier.toString()
-            //TODO convert utc to date time text and set it here
+            textViewDateAndTime.text =
+                Date(data.cheque?.content?.createdAtUtc?.times(1000) ?: 0L).formatToString()
             adapter.submitList(data.cheque?.content?.items ?: emptyList())
             textViewSum.text =
                 getString(R.string.msg_money_amount_template, data.cheque?.content?.sum.toString())
