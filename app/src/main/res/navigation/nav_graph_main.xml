@@ -51,6 +51,9 @@
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_chequesFragment_to_deleteChequeConfirmationFragment"
+            app:destination="@id/deleteChequeConfirmationFragment" />
     </fragment>
     <fragment
         android:id="@+id/QRScannerFragment"
@@ -70,7 +73,7 @@
     </fragment>
     <dialog
         android:id="@+id/scanResultBottomSheet"
-        android:name="com.mirkamalg.edvapp.ui.fragments.bottom_sheets.scan_result.ScanResultBottomSheet"
+        android:name="com.mirkamalg.edvapp.ui.bottom_sheets.scan_result.ScanResultBottomSheet"
         android:label="ScanResultBottomSheet"
         tools:layout="@layout/sheet_scan_result">
         <argument
@@ -127,4 +130,13 @@
         android:name="com.mirkamalg.edvapp.ui.fragments.manual_cheque_add.ManualChequeAddFragment"
         android:label="ManualChequeAddFragment"
         tools:layout="@layout/fragment_manual_cheque_add" />
+    <dialog
+        android:id="@+id/deleteChequeConfirmationFragment"
+        android:name="com.mirkamalg.edvapp.ui.dialogs.delete_cheque_confirmation.DeleteChequeConfirmationFragment"
+        android:label="DeleteChequeConfirmationFragment"
+        tools:layout="@layout/dialog_delete_cheque_confirmation">
+        <argument
+            android:name="chequeEntity"
+            app:argType="com.mirkamalg.edvapp.model.entities.ChequeEntity" />
+    </dialog>
 </navigation>

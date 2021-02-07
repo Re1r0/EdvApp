@@ -18,8 +18,12 @@ import com.google.zxing.WriterException
 import com.mirkamalg.edvapp.local.database.ChequesDatabase
 import com.mirkamalg.edvapp.model.data.*
 import com.mirkamalg.edvapp.model.entities.ChequeEntity
+import com.mirkamalg.edvapp.network.ResponseState
 import com.mirkamalg.edvapp.repositories.ChequesRepository
-import com.mirkamalg.edvapp.util.*
+import com.mirkamalg.edvapp.util.DAY
+import com.mirkamalg.edvapp.util.ERROR_NOT_FOUND
+import com.mirkamalg.edvapp.util.ERROR_RESPONSE_BODY_NULL
+import com.mirkamalg.edvapp.util.toChequeWrapperData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -72,10 +76,6 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
     val bitmapOfView: LiveData<Bitmap>
         get() = _bitmapOfView
 
-    private val _listData = MutableLiveData<ArrayList<*>>()
-    val listData: LiveData<ArrayList<*>>
-        get() = _listData
-
     fun getAllCheques() {
         viewModelScope.launch(Dispatchers.IO) {
             val cheques = chequesRepository.getAllCheques()?.asReversed()
@@ -94,18 +94,6 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
     fun deleteCheque(chequeEntity: ChequeEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             chequesRepository.deleteChequeFromDatabase(chequeEntity)
-        }
-    }
-
-    fun <T> removeItemAtPosition(list: MutableList<T>, position: Int) {
-        viewModelScope.launch(Dispatchers.Default) {
-            val newList = arrayListOf<T>()
-            newList.addAll(list)
-            newList.removeAt(position)
-            withContext(Dispatchers.Main) {
-                _listData.value = newList
-                _listData.value = null
-            }
         }
     }
 

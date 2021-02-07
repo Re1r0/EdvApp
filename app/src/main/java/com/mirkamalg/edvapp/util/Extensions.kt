@@ -24,19 +24,15 @@ import com.mirkamalg.edvapp.model.data.*
 import com.mirkamalg.edvapp.model.entities.ChequeEntity
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.round
 
 
 /**
  * Created by Mirkamal on 25 January 2021
  */
 
-fun String.toDate(
-    dateFormat: String = "dd.MM.yyy HH:mm",
-    timeZone: TimeZone = TimeZone.getTimeZone("UTC")
-): Date? {
-    val parser = SimpleDateFormat(dateFormat, Locale.getDefault())
-    parser.timeZone = timeZone
-    return parser.parse(this)
+fun Date.formatToString(format: String = DATE_FORMAT): String {
+    return SimpleDateFormat(format, Locale.ROOT).format(this)
 }
 
 fun ChequeEntity.toChequeWrapperData(): ChequeWrapperData {
@@ -163,4 +159,10 @@ fun Context?.openURL(URL: String) {
 fun Fragment.hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.hideSoftInputFromWindow(view?.windowToken, 0)
+}
+
+fun Double.round(decimals: Int): Double {
+    var multiplier = 1.0
+    repeat(decimals) { multiplier *= 10 }
+    return round(this * multiplier) / multiplier
 }
