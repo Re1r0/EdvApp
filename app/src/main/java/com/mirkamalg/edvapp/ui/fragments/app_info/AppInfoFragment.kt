@@ -17,15 +17,15 @@ import com.mirkamalg.edvapp.util.openURL
  */
 class AppInfoFragment : Fragment() {
 
-    private lateinit var binding: FragmentAppInfoBinding
+    private var binding: FragmentAppInfoBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentAppInfoBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,8 +35,13 @@ class AppInfoFragment : Fragment() {
         configureSpans()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+
     private fun configureSpans() {
-        binding.apply {
+        binding?.apply {
             textViewDescription.makeColored(
                 listOf(getString(R.string.msg_e_kassa_url)),
                 R.color.colorPrimary
@@ -55,7 +60,7 @@ class AppInfoFragment : Fragment() {
     }
 
     private fun setOnClickListeners() {
-        binding.apply {
+        binding?.apply {
             buttonGoBack.setOnClickListener {
                 findNavController().popBackStack()
             }

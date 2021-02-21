@@ -23,7 +23,7 @@ import java.util.*
  */
 class ManualChequeAddFragment : Fragment() {
 
-    private lateinit var binding: FragmentManualChequeAddBinding
+    private var binding: FragmentManualChequeAddBinding? = null
 
     private val chequesViewModel: ChequesViewModel by navGraphViewModels(R.id.nav_graph_main)
 
@@ -31,9 +31,9 @@ class ManualChequeAddFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentManualChequeAddBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,40 +45,45 @@ class ManualChequeAddFragment : Fragment() {
         configureSuccessAnimation()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+
     private fun configureObservers() {
         chequesViewModel.checkedChequeEntity.observe(viewLifecycleOwner) {
             if (it != null) {
-                binding.textInputLayoutShortID.error =
+                binding?.textInputLayoutShortID?.error =
                     getString(R.string.msg_cheque_has_already_been_added)
             }
         }
     }
 
     private fun configureValidation() {
-        binding.textInputEditTextShortID.doAfterTextChanged {
+        binding?.textInputEditTextShortID?.doAfterTextChanged {
             if (it?.length != 12) {
-                binding.textInputLayoutShortID.error =
+                binding?.textInputLayoutShortID?.error =
                     getString(R.string.err_short_id_must_be_twelve)
             } else {
-                binding.textInputLayoutShortID.error = null
+                binding?.textInputLayoutShortID?.error = null
                 chequesViewModel.getChequeDetailsFromDatabaseByShortID(it.toString())
             }
         }
     }
 
     private fun setOnClickListeners() {
-        binding.apply {
+        binding?.apply {
             buttonAdd.setOnClickListener {
                 if (textInputLayoutShortID.error == null) {
                     if (textInputEditTextShortID.text?.isNotBlank() == true) {
                         hideKeyboard()
                         chequesViewModel.addCheque(
                             ChequeEntity(
-                                binding.textInputEditTextShortID.text.toString(),
+                                textInputEditTextShortID.text.toString(),
                                 UUID.randomUUID().toString()
                             )
                         )
-                        binding.lottieAnimationViewSuccess.apply {
+                        lottieAnimationViewSuccess.apply {
                             isVisible = true
                             progress = 0f
                             playAnimation()
@@ -96,10 +101,10 @@ class ManualChequeAddFragment : Fragment() {
     }
 
     private fun configureSuccessAnimation() {
-        binding.lottieAnimationViewSuccess.addAnimatorUpdateListener {
+        binding?.lottieAnimationViewSuccess?.addAnimatorUpdateListener {
             if ((it.animatedValue as Float) >= 0.95f) {
                 Handler(Looper.getMainLooper()).postDelayed({
-                    binding.apply {
+                    binding?.apply {
                         lottieAnimationViewSuccess.apply {
                             isVisible = false
                             progress = 0f

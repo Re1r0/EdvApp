@@ -30,7 +30,7 @@ class ExpensesFragment : Fragment() {
     private val chequesViewModel: ChequesViewModel by navGraphViewModels(R.id.nav_graph_main)
     private val args: ExpensesFragmentArgs by navArgs()
 
-    private lateinit var binding: FragmentExpensesBinding
+    private var binding: FragmentExpensesBinding? = null
 
     private lateinit var adapter: FavoriteGoodsListAdapter
 
@@ -38,13 +38,13 @@ class ExpensesFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         sharedElementEnterTransition =
             TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         sharedElementReturnTransition = null
 
         binding = FragmentExpensesBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,12 +56,17 @@ class ExpensesFragment : Fragment() {
         configureObservers()
         configureRecyclerView()
 
-        binding.textViewTotalExpenseBanner.text = args.spendingTotal
+        binding?.textViewTotalExpenseBanner?.text = args.spendingTotal
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
     private fun configureRecyclerView() {
         adapter = FavoriteGoodsListAdapter()
-        binding.recyclerViewFavoriteGoods.adapter = adapter
+        binding?.recyclerViewFavoriteGoods?.adapter = adapter
     }
 
     private fun configureObservers() {
@@ -72,12 +77,12 @@ class ExpensesFragment : Fragment() {
                         it.toFloat()
                     })
 
-                    binding.textViewFavoriteMarket.text = expenseData.favoriteMarket
+                    binding?.textViewFavoriteMarket?.text = expenseData.favoriteMarket
                     adapter.submitList(expenseData.favoriteGoods)
                 } else {
                     //TODO add illustration screen for this case
                 }
-                binding.apply {
+                binding?.apply {
                     progressBar.isVisible = false
                     scrollViewExpenses.isVisible = true
                 }
@@ -86,7 +91,7 @@ class ExpensesFragment : Fragment() {
     }
 
     private fun configureChart(values: List<Float>) {
-        binding.ringChart.apply {
+        binding?.ringChart?.apply {
 
             //TODO properly test chart with a full week data
             if (values.all { it != 0f }) {
@@ -138,7 +143,7 @@ class ExpensesFragment : Fragment() {
                 data = pieData
                 invalidate()
             } else {
-                binding.apply {
+                binding?.apply {
                     ringChart.isVisible = false
                     textViewStatisticsLabel.isVisible = false
                 }
@@ -147,7 +152,7 @@ class ExpensesFragment : Fragment() {
     }
 
     private fun setOnClickListeners() {
-        binding.buttonGoBack.setOnClickListener {
+        binding?.buttonGoBack?.setOnClickListener {
             findNavController().popBackStack()
         }
     }

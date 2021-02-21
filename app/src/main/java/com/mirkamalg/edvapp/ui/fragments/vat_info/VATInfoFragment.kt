@@ -17,20 +17,20 @@ import com.mirkamalg.edvapp.util.openURL
  */
 class VATInfoFragment : Fragment() {
 
-    private lateinit var binding: FragmentVatInfoBinding
+    private var binding: FragmentVatInfoBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         sharedElementEnterTransition =
             TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         sharedElementReturnTransition =
             TransitionInflater.from(context).inflateTransition(android.R.transition.move)
 
         binding = FragmentVatInfoBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,19 +40,24 @@ class VATInfoFragment : Fragment() {
         setOnClickListeners()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+
     private fun configureAnimation() {
         ValueAnimator.ofFloat(0f, 1f).apply {
             duration = 800
             addUpdateListener {
-                binding.imageButtonOpen.alpha = it.animatedValue as Float
-                binding.textViewAboutVat.alpha = it.animatedValue as Float
+                binding?.imageButtonOpen?.alpha = it.animatedValue as Float
+                binding?.textViewAboutVat?.alpha = it.animatedValue as Float
             }
             start()
         }
     }
 
     private fun setOnClickListeners() {
-        binding.apply {
+        binding?.apply {
             buttonGoBack.setOnClickListener {
                 findNavController().popBackStack()
             }

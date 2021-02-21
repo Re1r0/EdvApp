@@ -24,7 +24,7 @@ class VATFragment : Fragment() {
     private val chequesViewModel: ChequesViewModel by navGraphViewModels(R.id.nav_graph_main)
     private val args: VATFragmentArgs by navArgs()
 
-    private lateinit var binding: FragmentVatBinding
+    private var binding: FragmentVatBinding? = null
 
     private lateinit var adapter: VATListAdapter
 
@@ -32,13 +32,13 @@ class VATFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         sharedElementEnterTransition =
             TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         sharedElementReturnTransition = null
 
         binding = FragmentVatBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,8 +48,13 @@ class VATFragment : Fragment() {
         configureRecyclerView()
         configureObservers()
 
-        binding.textViewTotalVatBanner.text = args.vatTotal
+        binding?.textViewTotalVatBanner?.text = args.vatTotal
         chequesViewModel.getAllCheques()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
     private fun configureObservers() {
@@ -58,7 +63,7 @@ class VATFragment : Fragment() {
         }
         chequesViewModel.vatList.observe(viewLifecycleOwner) {
             it?.let {
-                binding.apply {
+                binding?.apply {
                     recyclerViewVAT.isVisible = true
                     textViewGoodsAndVatsLabel.isVisible = true
                     progressBar.isVisible = false
@@ -72,15 +77,15 @@ class VATFragment : Fragment() {
 
     private fun configureRecyclerView() {
         adapter = VATListAdapter()
-        binding.recyclerViewVAT.adapter = adapter
+        binding?.recyclerViewVAT?.adapter = adapter
     }
 
     private fun setOnClickListeners() {
-        binding.buttonGoBack.setOnClickListener {
+        binding?.buttonGoBack?.setOnClickListener {
             findNavController().popBackStack()
         }
-        binding.imageButtoninfoVat.setOnClickListener {
-            val extras = FragmentNavigatorExtras(binding.imageButtoninfoVat to "infoImageVat")
+        binding?.imageButtoninfoVat?.setOnClickListener {
+            val extras = FragmentNavigatorExtras(binding!!.imageButtoninfoVat to "infoImageVat")
             findNavController().navigate(
                 VATFragmentDirections.actionVATFragmentToVATInfoFragment(),
                 extras

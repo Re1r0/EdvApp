@@ -24,7 +24,7 @@ import java.util.concurrent.Executors
  */
 class QRScannerFragment : Fragment() {
 
-    private lateinit var binding: FragmentQrScannerBinding
+    private var binding: FragmentQrScannerBinding? = null
 
     private var preview: Preview? = null
     private var imageAnalyzer: ImageAnalysis? = null
@@ -37,9 +37,9 @@ class QRScannerFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentQrScannerBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,6 +49,11 @@ class QRScannerFragment : Fragment() {
         configureScanner()
         configureAnimation()
         configureObservers()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
     private fun configureObservers() {
@@ -67,14 +72,14 @@ class QRScannerFragment : Fragment() {
             repeatMode = ValueAnimator.REVERSE
             duration = 1000
             addUpdateListener {
-                binding.imageViewOverlayScanner.alpha = it.animatedValue as Float
+                binding?.imageViewOverlayScanner?.alpha = it.animatedValue as Float
             }
             start()
         }
     }
 
     private fun setOnClickListeners() {
-        binding.apply {
+        binding?.apply {
             buttonGoBack.setOnClickListener {
                 findNavController().popBackStack()
             }
@@ -94,7 +99,7 @@ class QRScannerFragment : Fragment() {
         ValueAnimator.ofFloat(0f, -300f).apply {
             duration = 600
             addUpdateListener {
-                binding.root.translationY = it.animatedValue as Float
+                binding?.root?.translationY = it.animatedValue as Float
             }
             start()
         }
@@ -139,7 +144,7 @@ class QRScannerFragment : Fragment() {
                     camera = cameraProvider.bindToLifecycle(
                         viewLifecycleOwner, cameraSelector, preview, imageAnalyzer
                     )
-                    preview?.setSurfaceProvider(binding.previewViewQRScanner.surfaceProvider)
+                    preview?.setSurfaceProvider(binding?.previewViewQRScanner?.surfaceProvider)
                 } catch (exc: Exception) {
                     Log.e("TAG", "Use case binding failed $exc")
                 }
