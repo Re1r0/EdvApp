@@ -2,10 +2,8 @@ package com.mirkamalg.edvapp.viewmodels
 
 import android.app.Application
 import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -72,9 +70,9 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
     val weeklyExpenseData: LiveData<WeeklyExpenseData>
         get() = _weeklyExpenseData
 
-    private val _bitmapOfView = MutableLiveData<Bitmap>()
-    val bitmapOfView: LiveData<Bitmap>
-        get() = _bitmapOfView
+//    private val _bitmapOfView = MutableLiveData<Bitmap>()
+//    val bitmapOfView: LiveData<Bitmap>
+//        get() = _bitmapOfView
 
     fun getAllCheques() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -324,26 +322,26 @@ class ChequesViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun drawBitmapFromView(view: View) {
-        viewModelScope.launch(Dispatchers.Default) {
-            view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-
-            val bitmap = Bitmap.createBitmap(
-                view.measuredWidth,
-                view.measuredHeight,
-                Bitmap.Config.ARGB_8888
-            )
-
-            val canvas = Canvas(bitmap)
-
-            view.layout(0, 0, view.measuredWidth, view.measuredHeight)
-            view.draw(canvas)
-            withContext(Dispatchers.Main) {
-                _bitmapOfView.value = bitmap
-                _bitmapOfView.value = null
-            }
-        }
-    }
+//    fun drawBitmapFromView(view: View) {
+//        viewModelScope.launch(Dispatchers.Default) {
+//            view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+//
+//            val bitmap = Bitmap.createBitmap(
+//                view.measuredWidth,
+//                view.measuredHeight,
+//                Bitmap.Config.ARGB_8888
+//            )
+//
+//            val canvas = Canvas(bitmap)
+//
+//            view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+//            view.draw(canvas)
+//            withContext(Dispatchers.Main) {
+//                _bitmapOfView.value = bitmap
+//                _bitmapOfView.value = null
+//            }
+//        }
+//    }
 
     fun getWeeklyExpenseData() {
         viewModelScope.launch(Dispatchers.IO) {

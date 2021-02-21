@@ -1,14 +1,11 @@
 package com.mirkamalg.edvapp.ui.fragments.cheque_details
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -21,9 +18,6 @@ import com.mirkamalg.edvapp.model.data.ChequeWrapperData
 import com.mirkamalg.edvapp.ui.fragments.cheque_details.recyclerview.ChequeItemsListAdapter
 import com.mirkamalg.edvapp.util.*
 import com.mirkamalg.edvapp.viewmodels.ChequesViewModel
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
 import java.util.*
 
 /**
@@ -33,7 +27,7 @@ class ChequeDetailsFragment : Fragment() {
 
     private val args: ChequeDetailsFragmentArgs by navArgs()
 
-    private lateinit var binding: FragmentChequeDetailsBinding
+    private var binding: FragmentChequeDetailsBinding? = null
 
     private val chequesViewModel: ChequesViewModel by navGraphViewModels(R.id.nav_graph_main)
 
@@ -43,9 +37,9 @@ class ChequeDetailsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentChequeDetailsBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,18 +53,22 @@ class ChequeDetailsFragment : Fragment() {
     }
 
     private fun setOnClickListeners() {
-        binding.apply {
+        binding?.apply {
             buttonGoBack.setOnClickListener {
                 findNavController().popBackStack()
             }
             imageButtonShare.setOnClickListener {
-                chequesViewModel.drawBitmapFromView(binding.mainConstraintLayout)
+                shareText(
+                    getString(R.string.msg_short_id),
+                    args.chequeEntity.shortDocumentId
+                )
+//                chequesViewModel.drawBitmapFromView(this.mainConstraintLayout)
             }
             buttonRetry.setOnClickListener {
                 fetchChequeDetails()
             }
             imageButtonCopyShortID.setOnClickListener {
-                context.copyToClipboard(binding.textViewShortID.text.toString())
+                context.copyToClipboard(this.textViewShortID.text.toString())
                 Toast.makeText(
                     context,
                     getString(R.string.msg_short_document_id_was_copied),
@@ -88,7 +86,7 @@ class ChequeDetailsFragment : Fragment() {
         }
         chequesViewModel.viewedChequeData.observe(viewLifecycleOwner) {
             it?.let {
-                binding.progressBar.isVisible = false
+                binding?.progressBar?.isVisible = false
 
                 chequesViewModel.generateQRCodeFromString(
                     "${PREFIX_EGOV_URL}${it.cheque?.shortDocumentId}"
@@ -110,21 +108,21 @@ class ChequeDetailsFragment : Fragment() {
             //TODO change checking method to using 'returnStatus' instead of 'returnedAmount'
             it?.let {
                 it.returnedAmount?.let {
-                    binding.textViewCashBack.text = getText(R.string.msg_cashback_refunded)
+                    binding?.textViewCashBack?.text = getText(R.string.msg_cashback_refunded)
                     updateChequeAsCashbackRefunded(args.chequeEntity.documentID)
                 }
             }
         }
         chequesViewModel.generatedQRBitmap.observe(viewLifecycleOwner) {
             it?.let {
-                binding.imageViewQRCode.setImageBitmap(it)
+                binding?.imageViewQRCode?.setImageBitmap(it)
             }
         }
-        chequesViewModel.bitmapOfView.observe(viewLifecycleOwner) {
-            it?.let {
-                shareImage(it)
-            }
-        }
+//        chequesViewModel.bitmapOfView.observe(viewLifecycleOwner) {
+//            it?.let {
+//                shareImage(it)
+//            }
+//        }
     }
 
     private fun updateChequeAsCashbackRefunded(documentID: String) {
@@ -136,7 +134,7 @@ class ChequeDetailsFragment : Fragment() {
     }
 
     private fun loadDataToUI(data: ChequeWrapperData) {
-        binding.apply {
+        binding?.apply {
             textViewBannerStoreName.text = data.cheque?.storeName.toString()
             textViewAddress.text = data.cheque?.storeAddress.toString()
             textViewCompanyTaxNumber.text = data.cheque?.companyTaxNumber.toString()
@@ -185,12 +183,12 @@ class ChequeDetailsFragment : Fragment() {
 
     private fun configureRecyclerView() {
         adapter = ChequeItemsListAdapter()
-        binding.recyclerViewGoods.adapter = adapter
+        binding?.recyclerViewGoods?.adapter = adapter
     }
 
     private fun fetchChequeDetails() {
 
-        binding.apply {
+        binding?.apply {
             progressBar.isVisible = true
             imageViewError.isVisible = false
             buttonRetry.isVisible = false
@@ -209,8 +207,8 @@ class ChequeDetailsFragment : Fragment() {
     private fun handleError(error: String) {
         when (error) {
             ERROR_NOT_FOUND -> {
-                if (!binding.nestedScrollViewChequeDetails.isVisible) {
-                    binding.apply {
+                if (binding?.nestedScrollViewChequeDetails?.isVisible == false) {
+                    binding?.apply {
                         progressBar.isVisible = false
 
                         imageViewError.setImageResource(R.drawable.not_found)
@@ -230,8 +228,8 @@ class ChequeDetailsFragment : Fragment() {
                 ).show()
             }
             ERROR_UNABLE_TO_RESOLVE_HOST -> {
-                if (!binding.nestedScrollViewChequeDetails.isVisible) {
-                    binding.apply {
+                if (binding?.nestedScrollViewChequeDetails?.isVisible == false) {
+                    binding?.apply {
                         progressBar.isVisible = false
 
                         imageViewError.setImageResource(R.drawable.internet_lost)
@@ -253,29 +251,37 @@ class ChequeDetailsFragment : Fragment() {
         }
     }
 
-    private fun shareImage(bitmap: Bitmap) {
-        context?.let {
-            val share = Intent(Intent.ACTION_SEND)
-            share.type = "image/jpeg"
-            val bytes = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-
-            val file = File(it.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "cheque.jpeg")
-
-            FileOutputStream(file).apply {
-                write(bytes.toByteArray())
-                flush()
-                close()
-            }
-
-            val imageUri = FileProvider.getUriForFile(
-                it,
-                "com.mirkamalg.edvapp.ui.fragments.cheque_details.ChequeDetailsFragment",
-                file
-            )
-
-            share.putExtra(Intent.EXTRA_STREAM, imageUri)
-            startActivity(Intent.createChooser(share, getString(R.string.msg_choose)))
-        }
+    private fun shareText(subject: String, text: String) {
+        startActivity(Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_SUBJECT, subject)
+            putExtra(Intent.EXTRA_TEXT, text)
+        })
     }
+
+//    private fun shareImage(bitmap: Bitmap) {
+//        context?.let {
+//            val share = Intent(Intent.ACTION_SEND)
+//            share.type = "image/jpeg"
+//            val bytes = ByteArrayOutputStream()
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+//
+//            val file = File(it.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "cheque.jpeg")
+//
+//            FileOutputStream(file).apply {
+//                write(bytes.toByteArray())
+//                flush()
+//                close()
+//            }
+//
+//            val imageUri = FileProvider.getUriForFile(
+//                it,
+//                "com.mirkamalg.edvapp.ui.fragments.cheque_details.ChequeDetailsFragment",
+//                file
+//            )
+//
+//            share.putExtra(Intent.EXTRA_STREAM, imageUri)
+//            startActivity(Intent.createChooser(share, getString(R.string.msg_choose)))
+//        }
+//    }
 }
