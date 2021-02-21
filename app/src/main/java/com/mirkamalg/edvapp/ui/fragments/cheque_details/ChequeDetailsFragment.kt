@@ -52,6 +52,11 @@ class ChequeDetailsFragment : Fragment() {
         fetchChequeDetails()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+
     private fun setOnClickListeners() {
         binding?.apply {
             buttonGoBack.setOnClickListener {
