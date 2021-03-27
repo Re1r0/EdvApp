@@ -86,4 +86,5 @@
     <string name="action_cancel">Ləğv et</string>
     <string name="title_delete_cheque">Çekin silinməsi</string>
     <string name="msg_confirmation_delete_cheque">Çeki silmək istədiyinizdən əminsinizmi?</string>
+    <string name="err_qr_code_not_found">QR kod tapılmadı.</string>
 </resources>
