@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center|top"
     android:padding="16dp">
 
     <TextView
@@ -11,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sf_ui_display_bold"
-        android:text="Çekin silinməsi"
+        android:text="@string/title_delete_cheque"
         android:textColor="?colorOnSecondary"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/sf_ui_display_medium"
-        android:text="Çeki silmək istədiyinizdən əminsinizmi?"
+        android:text="@string/msg_confirmation_delete_cheque"
         android:textAlignment="center"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"

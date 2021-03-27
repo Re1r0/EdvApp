@@ -15,22 +15,27 @@ import com.mirkamalg.edvapp.ui.fragments.onboarding.onboarding_pages.OnBoardingP
  */
 class OnBoardingFragment : Fragment() {
 
-    private lateinit var binding: FragmentOnboardingBinding
+    private var binding: FragmentOnboardingBinding? = null
     private lateinit var adapter: OnBoardingPagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentOnboardingBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         configureViewPager()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
     private fun configureViewPager() {
@@ -41,7 +46,7 @@ class OnBoardingFragment : Fragment() {
         )
 
         adapter = OnBoardingPagerAdapter(this, fragments)
-        binding.viewPagerOnBoarding.apply {
+        binding?.viewPagerOnBoarding?.apply {
             adapter = this@OnBoardingFragment.adapter
             setPageTransformer(OnBoardingPagerTransformer())
             isUserInputEnabled = false
@@ -49,6 +54,8 @@ class OnBoardingFragment : Fragment() {
     }
 
     fun toNextPage() {
-        binding.viewPagerOnBoarding.currentItem = binding.viewPagerOnBoarding.currentItem + 1
+        binding?.viewPagerOnBoarding?.currentItem = binding?.viewPagerOnBoarding?.currentItem?.plus(
+            1
+        ) ?: return
     }
 }

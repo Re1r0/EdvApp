@@ -35,7 +35,7 @@ object ApiInitHelper {
         return okHttpBuilder.build()
     }
 
-    fun getClient(): Retrofit {
+    private fun getClient(): Retrofit {
         retrofit = Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(CoroutineCallAdapterFactory())

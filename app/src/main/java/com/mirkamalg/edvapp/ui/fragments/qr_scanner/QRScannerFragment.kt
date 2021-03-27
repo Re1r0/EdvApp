@@ -1,6 +1,9 @@
 package com.mirkamalg.edvapp.ui.fragments.qr_scanner
 
+import android.Manifest
 import android.animation.ValueAnimator
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,12 +11,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
+import com.mirkamalg.edvapp.R
 import com.mirkamalg.edvapp.databinding.FragmentQrScannerBinding
+import com.mirkamalg.edvapp.util.REQUEST_CODE_EXTERNAL_STORAGE_PERMISSION
+import com.mirkamalg.edvapp.util.REQUEST_CODE_PICK_IMAGE_FROM_STORAGE
 import com.mirkamalg.edvapp.viewmodels.QRScannerViewModel
 import java.nio.ByteBuffer
 import java.util.concurrent.ExecutorService
@@ -24,7 +32,7 @@ import java.util.concurrent.Executors
  */
 class QRScannerFragment : Fragment() {
 
-    private lateinit var binding: FragmentQrScannerBinding
+    private var binding: FragmentQrScannerBinding? = null
 
     private var preview: Preview? = null
     private var imageAnalyzer: ImageAnalysis? = null
@@ -37,9 +45,9 @@ class QRScannerFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentQrScannerBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,13 +59,41 @@ class QRScannerFragment : Fragment() {
         configureObservers()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_CODE_PICK_IMAGE_FROM_STORAGE) {
+            val uri = data?.data
+            uri?.let {
+                qrScannerViewModel.scanQRCodeFromURI(it)
+            }
+        }
+    }
+
     private fun configureObservers() {
         qrScannerViewModel.shortID.observe(viewLifecycleOwner) {
+            Log.e("HERE", it)
             findNavController().navigate(
                 QRScannerFragmentDirections.actionQRScannerFragmentToScanResultBottomSheet(
                     it
                 )
             )
+        }
+        qrScannerViewModel.error.observe(viewLifecycleOwner) {
+            Log.e("HERE", "HERE")
+            it?.let {
+                Snackbar.make(
+                    binding!!.previewViewQRScanner,
+                    getString(R.string.err_qr_code_not_found),
+                    Snackbar.LENGTH_SHORT
+                )
+
+            }
         }
     }
 
@@ -67,19 +103,26 @@ class QRScannerFragment : Fragment() {
             repeatMode = ValueAnimator.REVERSE
             duration = 1000
             addUpdateListener {
-                binding.imageViewOverlayScanner.alpha = it.animatedValue as Float
+                binding?.imageViewOverlayScanner?.alpha = it.animatedValue as Float
             }
             start()
         }
     }
 
     private fun setOnClickListeners() {
-        binding.apply {
+        binding?.apply {
             buttonGoBack.setOnClickListener {
                 findNavController().popBackStack()
             }
             imageButtonPickFromGallery.setOnClickListener {
-
+                if (handleStoragePermission()) {
+                    startActivityForResult(
+                        Intent().apply {
+                            type = "image/*"
+                            action = Intent.ACTION_GET_CONTENT
+                        }, REQUEST_CODE_PICK_IMAGE_FROM_STORAGE
+                    )
+                }
             }
             imageButtonKeyboard.setOnClickListener {
                 previewViewQRScanner.isVisible = false
@@ -94,7 +137,7 @@ class QRScannerFragment : Fragment() {
         ValueAnimator.ofFloat(0f, -300f).apply {
             duration = 600
             addUpdateListener {
-                binding.root.translationY = it.animatedValue as Float
+                binding?.root?.translationY = it.animatedValue as Float
             }
             start()
         }
@@ -121,7 +164,7 @@ class QRScannerFragment : Fragment() {
                         it.setAnalyzer(
                             cameraExecutor,
                             ScanImageAnalyzer(BarcodeAnalyzer { img, rotation, height, width ->
-                                qrScannerViewModel.scanBarcode(img, rotation, height, width)
+                                qrScannerViewModel.scanQRCode(img, rotation, height, width)
                             })
                         )
                     }
@@ -139,13 +182,32 @@ class QRScannerFragment : Fragment() {
                     camera = cameraProvider.bindToLifecycle(
                         viewLifecycleOwner, cameraSelector, preview, imageAnalyzer
                     )
-                    preview?.setSurfaceProvider(binding.previewViewQRScanner.surfaceProvider)
+                    preview?.setSurfaceProvider(binding?.previewViewQRScanner?.surfaceProvider)
                 } catch (exc: Exception) {
                     Log.e("TAG", "Use case binding failed $exc")
                 }
 
             }, ContextCompat.getMainExecutor(context))
         }
+    }
+
+    fun handleStoragePermission(): Boolean {
+        context?.let {
+            return if (ActivityCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                true
+            } else {
+                requestPermissions(
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    REQUEST_CODE_EXTERNAL_STORAGE_PERMISSION
+                )
+                false
+            }
+        }
+        return false
     }
 }
 

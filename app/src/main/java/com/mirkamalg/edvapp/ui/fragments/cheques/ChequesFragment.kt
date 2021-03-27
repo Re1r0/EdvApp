@@ -3,6 +3,8 @@ package com.mirkamalg.edvapp.ui.fragments.cheques
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +27,7 @@ import com.mirkamalg.edvapp.viewmodels.ChequesViewModel
  */
 class ChequesFragment : Fragment() {
 
-    private lateinit var binding: FragmentChequesBinding
+    private var binding: FragmentChequesBinding? = null
 
     private val chequesViewModel: ChequesViewModel by navGraphViewModels(R.id.nav_graph_main)
 
@@ -35,9 +37,9 @@ class ChequesFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentChequesBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,6 +48,11 @@ class ChequesFragment : Fragment() {
         setOnClickListeners()
         configureRecyclerView()
         configureObservers()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
     private fun configureRecyclerView() {
@@ -62,7 +69,7 @@ class ChequesFragment : Fragment() {
                 )
             )
         })
-        binding.recyclerViewCheques.adapter = adapter
+        binding?.recyclerViewCheques?.adapter = adapter
 
         chequesViewModel.getAllCheques()
     }
@@ -74,7 +81,7 @@ class ChequesFragment : Fragment() {
             chequesViewModel.calculateSumOfExpensesAndVAT(it)
         }
         chequesViewModel.totalExpenseAndVat.observe(viewLifecycleOwner) {
-            binding.apply {
+            binding?.apply {
                 it?.let {
                     textViewTotalSpending.text =
                         getString(R.string.msg_money_amount_template, it.first.round(2).toString())
@@ -88,7 +95,10 @@ class ChequesFragment : Fragment() {
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("deleteChequeKey")
             ?.observe(viewLifecycleOwner) {
                 it?.let {
-                    chequesViewModel.getAllCheques()
+                    // Get cheques after 200ms since update taking effect takes some time
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        chequesViewModel.getAllCheques()
+                    }, 300)
                 }
             }
     }
@@ -112,7 +122,7 @@ class ChequesFragment : Fragment() {
     }
 
     private fun setOnClickListeners() {
-        binding.apply {
+        binding?.apply {
             floationActionButtonScanQRCode.setOnClickListener {
                 if (handlePermissions()) {
                     navigateToQRScanner()
@@ -127,22 +137,24 @@ class ChequesFragment : Fragment() {
             cardViewExpenses.setOnClickListener {
                 val extras =
                     FragmentNavigatorExtras(
-                        binding.textViewTotalSpendingLabel to "totalExpenseText",
-                        binding.textViewTotalSpending to "totalExpenseAmount"
+                        textViewTotalSpendingLabel to "totalExpenseText",
+                        textViewTotalSpending to "totalExpenseAmount"
                     )
                 findNavController().navigate(
-                    ChequesFragmentDirections.actionChequesFragmentToExpensesFragment(binding.textViewTotalSpending.text.toString()),
+                    ChequesFragmentDirections.actionChequesFragmentToExpensesFragment(
+                        textViewTotalSpending.text.toString()
+                    ),
                     extras
                 )
             }
             cardViewVAT.setOnClickListener {
                 val extras =
                     FragmentNavigatorExtras(
-                        binding.textViewTotalVATLabel to "totalVATText",
-                        binding.textViewTotalVAT to "totalVatAmount"
+                        textViewTotalVATLabel to "totalVATText",
+                        textViewTotalVAT to "totalVatAmount"
                     )
                 findNavController().navigate(
-                    ChequesFragmentDirections.actionChequesFragmentToVATFragment(binding.textViewTotalVAT.text.toString()),
+                    ChequesFragmentDirections.actionChequesFragmentToVATFragment(textViewTotalVAT.text.toString()),
                     extras
                 )
             }

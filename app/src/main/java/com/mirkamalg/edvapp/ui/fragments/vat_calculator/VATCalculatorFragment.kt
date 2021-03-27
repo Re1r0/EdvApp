@@ -19,7 +19,7 @@ import com.mirkamalg.edvapp.util.MANAT_CHAR
  */
 class VATCalculatorFragment : Fragment() {
 
-    private lateinit var binding: FragmentVatCalculatorBinding
+    private var binding: FragmentVatCalculatorBinding? = null
 
     // 0 - cash, 1 - cashless
     private var paymentMethod = 0
@@ -28,9 +28,9 @@ class VATCalculatorFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentVatCalculatorBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,6 +39,11 @@ class VATCalculatorFragment : Fragment() {
         setOnClickListeners()
         configureCalculator()
         configureSpinner()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
     private fun configureSpinner() {
@@ -51,7 +56,7 @@ class VATCalculatorFragment : Fragment() {
                     getString(R.string.msg_cashless_payment)
                 )
             )
-        binding.calculatorSpinnerPaymentMethod.apply {
+        binding?.calculatorSpinnerPaymentMethod?.apply {
             this.adapter = adapter
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -61,7 +66,7 @@ class VATCalculatorFragment : Fragment() {
                     id: Long
                 ) {
                     paymentMethod = position
-                    calculateVAT(binding.textViewVatCalculatorInput.text.toString())
+                    calculateVAT(binding!!.textViewVatCalculatorInput.text.toString())
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -71,7 +76,7 @@ class VATCalculatorFragment : Fragment() {
     }
 
     private fun configureCalculator() {
-        binding.apply {
+        binding?.apply {
             cardView0.setOnClickListener {
                 textViewVatCalculatorInput.text = "${textViewVatCalculatorInput.text}0"
             }
@@ -135,21 +140,21 @@ class VATCalculatorFragment : Fragment() {
                 } else {
                     (converted * 0.15).toString()
                 }
-                binding.textViewVatResult.text = if (result.length > 5) {
+                binding?.textViewVatResult?.text = if (result.length > 5) {
                     "${result.substring(0, 5).trim('.')}${MANAT_CHAR}"
                 } else {
                     "${result}${MANAT_CHAR}"
                 }
             } else {
-                binding.textViewVatResult.text = "0.00${MANAT_CHAR}"
+                binding?.textViewVatResult?.text = "0.00${MANAT_CHAR}"
             }
         } catch (e: Exception) {
-            binding.textViewVatResult.text = getString(R.string.err_error)
+            binding?.textViewVatResult?.text = getString(R.string.err_error)
         }
     }
 
     private fun setOnClickListeners() {
-        binding.apply {
+        binding?.apply {
             buttonGoBack.setOnClickListener {
                 findNavController().popBackStack()
             }

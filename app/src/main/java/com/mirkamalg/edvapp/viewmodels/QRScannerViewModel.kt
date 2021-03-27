@@ -1,6 +1,7 @@
 package com.mirkamalg.edvapp.viewmodels
 
 import android.app.Application
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -21,12 +22,17 @@ class QRScannerViewModel(application: Application) : AndroidViewModel(applicatio
     private val options = BarcodeScannerOptions.Builder()
         .setBarcodeFormats(Barcode.FORMAT_QR_CODE)
         .build()
+    private val scanner = BarcodeScanning.getClient(options)
 
     private val _shortID = MutableLiveData<String>()
     val shortID: LiveData<String>
         get() = _shortID
 
-    fun scanBarcode(img: ByteArray, rotation: Int, height: Int, width: Int) {
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String>
+        get() = _error
+
+    fun scanQRCode(img: ByteArray, rotation: Int, height: Int, width: Int) {
         viewModelScope.launch(Dispatchers.Default) {
             val image = InputImage.fromByteArray(
                 img,
@@ -35,8 +41,6 @@ class QRScannerViewModel(application: Application) : AndroidViewModel(applicatio
                 rotation,
                 InputImage.IMAGE_FORMAT_NV21 // or IMAGE_FORMAT_YV12
             )
-
-            val scanner = BarcodeScanning.getClient(options)
             scanner.process(image)
                 .addOnSuccessListener { barcodes ->
                     try {
@@ -60,6 +64,28 @@ class QRScannerViewModel(application: Application) : AndroidViewModel(applicatio
                 }
         }
 
+    }
+
+    fun scanQRCodeFromURI(uri: Uri) {
+        Log.e("HERE", uri.toString())
+        scanner.process(InputImage.fromFilePath(getApplication(), uri))
+            .addOnSuccessListener { barcodes ->
+                try {
+                    val barcode = barcodes[0]
+                    if (barcode.valueType == Barcode.TYPE_URL) {
+                        barcode?.url?.url.let {
+                            if (isValidURL(it.toString()) && _shortID.value != it) {
+                                _shortID.value = it
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.e("ScannerValueRead", e.message.toString())
+                }
+            }.addOnFailureListener {
+                _error.value = it.message
+                _error.value = null
+            }
     }
 
     private fun isValidURL(url: String): Boolean {

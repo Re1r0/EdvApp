@@ -6,6 +6,8 @@ package com.mirkamalg.edvapp.util
 
 // Request codes
 const val REQUEST_CODE_CAMERA_PERMISSION = 0
+const val REQUEST_CODE_EXTERNAL_STORAGE_PERMISSION = 1
+const val REQUEST_CODE_PICK_IMAGE_FROM_STORAGE = 2
 
 // Database
 const val CHEQUES_DATABASE_NAME = "CHEQUES_DATABASE"
